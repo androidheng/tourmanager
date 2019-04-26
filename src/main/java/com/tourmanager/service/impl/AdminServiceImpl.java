@@ -2,6 +2,8 @@ package com.tourmanager.service.impl;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.tourmanager.mapper.TbAdminMapper;
@@ -55,7 +57,7 @@ public class AdminServiceImpl implements AdminService {
 	 */
 	@Override
 	public void update(TbAdmin admin){
-		adminMapper.updateByPrimaryKey(admin);
+		adminMapper.updateByPrimaryKeySelective(admin);
 	}	
 	
 	/**
@@ -69,13 +71,11 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	/**
-	 * 批量删除
+	 * 删除
 	 */
 	@Override
-	public void delete(Integer[] ids) {
-		for(Integer id:ids){
-			adminMapper.deleteByPrimaryKey(id);
-		}		
+	public void delete(Integer id) {
+		adminMapper.deleteByPrimaryKey(id);
 	}
 	
 	
@@ -87,11 +87,39 @@ public class AdminServiceImpl implements AdminService {
 		Criteria criteria = example.createCriteria();
 		
 		if(admin!=null){			
-				
+			if(!StringUtils.isEmpty(admin.getUsername())) {
+				criteria.andUsernameLike("%"+admin.getUsername()+"%");
+			}
+			if(!StringUtils.isEmpty(admin.getUsertype())) {
+				criteria.andUsertypeEqualTo(admin.getUsertype());
+			}
 		}
 		
 		Page<TbAdmin> page= (Page<TbAdmin>)adminMapper.selectByExample(example);		
 		return new PageResult(0,"",page.getTotal(), page.getResult());
 	}
+
+		@Override
+		public TbAdmin login(TbAdmin admin) {
+			TbAdminExample example=new TbAdminExample();
+			Criteria criteria = example.createCriteria();
+			
+			if(admin!=null){			
+				if(!StringUtils.isEmpty(admin.getUsername())) {
+					criteria.andUsernameEqualTo(admin.getUsername());
+				}
+				if(!StringUtils.isEmpty(admin.getPassword())) {
+					criteria.andPasswordEqualTo(admin.getPassword());
+				}
+				if(!StringUtils.isEmpty(admin.getUsertype())) {
+					criteria.andUsertypeEqualTo(admin.getUsertype());
+				}
+			}
+			
+			List<TbAdmin> list = adminMapper.selectByExample(example);
+			if(list.size()>0)
+				return list.get(0);
+			return null;
+		}
 	
 }

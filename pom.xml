@@ -133,19 +133,20 @@
 		<scope>provided</scope>
 	</dependency>   -->
   </dependencies>
-  
   <build>
-		<plugins>			
-			<!-- 配置Tomcat插件 -->
+		<plugins>
 			<plugin>
-				<groupId>org.apache.tomcat.maven</groupId>
-				<artifactId>tomcat7-maven-plugin</artifactId>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
 				<configuration>
-					<path>/</path>
-					<port>9101</port>
+					<httpConnector>
+						<port>8090</port>
+					</httpConnector>
+					<stopKey>shutdown</stopKey>
+					<stopPort>9966</stopPort>
 				</configuration>
 			</plugin>
 		</plugins>
-    </build>
+	</build>
   
 </project>

@@ -45,10 +45,10 @@ public interface AdminService {
 	
 	
 	/**
-	 * 批量删除
-	 * @param ids
+	 * 删除
+	 * @param id
 	 */
-	public void delete(Integer [] ids);
+	public void delete(Integer  id);
 
 	/**
 	 * 分页
@@ -57,5 +57,8 @@ public interface AdminService {
 	 * @return
 	 */
 	public PageResult findPage(TbAdmin admin, int pageNum,int pageSize);
+
+
+	public TbAdmin login(TbAdmin admin);
 	
 }

@@ -5,8 +5,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
+
 import com.tourmanager.pojo.TbAdmin;
 import com.tourmanager.service.AdminService;
+import com.tourmanager.utils.DateUtils;
 
 import entity.PageResult;
 import entity.Result;
@@ -21,7 +24,21 @@ public class AdminController {
 
 	@Autowired
 	private AdminService adminService;
-	
+	/**
+	 * 登录
+	 * @param admin
+	 * @return
+	 */
+	@RequestMapping("/login")
+	public Result login(@RequestBody TbAdmin admin){
+		try {
+			TbAdmin loginAdmin=adminService.login(admin);
+			return new Result(true, "登录成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Result(false, "登录失败");
+		}
+	}
 	/**
 	 * 返回全部列表
 	 * @return
@@ -49,6 +66,7 @@ public class AdminController {
 	@RequestMapping("/add")
 	public Result add(@RequestBody TbAdmin admin){
 		try {
+			admin.setCreatetime(DateUtils.getCurrent());
 			adminService.add(admin);
 			return new Result(true, "增加成功");
 		} catch (Exception e) {
@@ -84,14 +102,14 @@ public class AdminController {
 	}
 	
 	/**
-	 * 批量删除
-	 * @param ids
+	 * 删除
+	 * @param id
 	 * @return
 	 */
 	@RequestMapping("/delete")
-	public Result delete(Integer [] ids){
+	public Result delete(@RequestBody TbAdmin admin){
 		try {
-			adminService.delete(ids);
+			adminService.delete(admin.getId());
 			return new Result(true, "删除成功"); 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -107,8 +125,15 @@ public class AdminController {
 	 * @return
 	 */
 	@RequestMapping("/search")
-	public PageResult search(@RequestBody TbAdmin admin, int page, int rows  ){
-		return adminService.findPage(admin, page, rows);		
+	public PageResult search(String usertype,String key , int page, int limit  ){
+		TbAdmin admin=new TbAdmin();
+		if(!StringUtils.isEmpty(usertype)) {
+			admin.setUsertype(usertype);
+		}
+		if(!StringUtils.isEmpty(key)) {
+			admin.setUsername(key);
+		}
+		return adminService.findPage(admin, page, limit);		
 	}
 	
 }
