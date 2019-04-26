@@ -63,16 +63,27 @@ public class AdminController {
 	 * @param admin
 	 * @return
 	 */
-	@RequestMapping("/add")
-	public Result add(@RequestBody TbAdmin admin){
-		try {
-			admin.setCreatetime(DateUtils.getCurrent());
-			adminService.add(admin);
-			return new Result(true, "增加成功");
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new Result(false, "增加失败");
+	@RequestMapping("/addOrUpdate")
+	public Result addOrUpdate(@RequestBody TbAdmin admin){
+		if(StringUtils.isEmpty(admin.getId())) {
+			try {
+				admin.setCreatetime(DateUtils.getCurrent());
+				adminService.add(admin);
+				return new Result(true, "增加成功");
+			} catch (Exception e) {
+				e.printStackTrace();
+				return new Result(false, "增加失败");
+			}
+		}else {
+			try {
+				adminService.update(admin);
+				return new Result(true, "修改成功");
+			} catch (Exception e) {
+				e.printStackTrace();
+				return new Result(false, "修改失败");
+			}
 		}
+		
 	}
 	
 	/**
