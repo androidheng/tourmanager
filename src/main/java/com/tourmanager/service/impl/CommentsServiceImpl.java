@@ -2,6 +2,8 @@ package com.tourmanager.service.impl;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.tourmanager.mapper.TbCommentsMapper;
@@ -55,7 +57,7 @@ public class CommentsServiceImpl implements CommentsService {
 	 */
 	@Override
 	public void update(TbComments comments){
-		commentsMapper.updateByPrimaryKey(comments);
+		commentsMapper.updateByPrimaryKeySelective(comments);
 	}	
 	
 	/**
@@ -87,7 +89,13 @@ public class CommentsServiceImpl implements CommentsService {
 		Criteria criteria = example.createCriteria();
 		
 		if(comments!=null){			
-				
+			if(!StringUtils.isEmpty(comments.getAid())) {
+				criteria.andAidEqualTo(comments.getAid());
+			}
+			if(!StringUtils.isEmpty(comments.getAttrname())) {
+				criteria.andAttrnameLike("%"+comments.getAttrname()+"%");
+			}
+			
 		}
 		
 		Page<TbComments> page= (Page<TbComments>)commentsMapper.selectByExample(example);		

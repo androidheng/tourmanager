@@ -2,6 +2,8 @@ package com.tourmanager.service.impl;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.tourmanager.mapper.TbAttractionsMapper;
@@ -55,7 +57,7 @@ public class AttractionsServiceImpl implements AttractionsService {
 	 */
 	@Override
 	public void update(TbAttractions attractions){
-		attractionsMapper.updateByPrimaryKey(attractions);
+		attractionsMapper.updateByPrimaryKeySelective(attractions);
 	}	
 	
 	/**
@@ -72,10 +74,8 @@ public class AttractionsServiceImpl implements AttractionsService {
 	 * 批量删除
 	 */
 	@Override
-	public void delete(Integer[] ids) {
-		for(Integer id:ids){
-			attractionsMapper.deleteByPrimaryKey(id);
-		}		
+	public void delete(Integer id) {
+		attractionsMapper.deleteByPrimaryKey(id);
 	}
 	
 	
@@ -87,7 +87,9 @@ public class AttractionsServiceImpl implements AttractionsService {
 		Criteria criteria = example.createCriteria();
 		
 		if(attractions!=null){			
-				
+			if(!StringUtils.isEmpty(attractions.getAttrname())) {
+				criteria.andAttrnameLike("%"+attractions.getAttrname()+"%");
+			}	
 		}
 		
 		Page<TbAttractions> page= (Page<TbAttractions>)attractionsMapper.selectByExample(example);		

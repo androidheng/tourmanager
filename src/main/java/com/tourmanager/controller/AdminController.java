@@ -1,6 +1,8 @@
 package com.tourmanager.controller;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,10 +32,14 @@ public class AdminController {
 	 * @return
 	 */
 	@RequestMapping("/login")
-	public Result login(@RequestBody TbAdmin admin){
+	public Result login(@RequestBody TbAdmin admin,HttpSession session){
 		try {
 			TbAdmin loginAdmin=adminService.login(admin);
-			return new Result(true, "登录成功");
+			if(loginAdmin!=null) {
+				session.setAttribute("login", loginAdmin);
+				return new Result(true, "登录成功");
+			}
+			return new Result(false, "登录失败");
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new Result(false, "登录失败");

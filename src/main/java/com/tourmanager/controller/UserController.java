@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
+
 import com.tourmanager.pojo.TbUser;
 import com.tourmanager.service.UserService;
 
@@ -107,8 +109,12 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping("/search")
-	public PageResult search(@RequestBody TbUser user, int page, int rows  ){
-		return userService.findPage(user, page, rows);		
+	public PageResult search(String key , int page, int limit  ){
+		TbUser user=new TbUser();
+		if(StringUtils.isEmpty(key)) {
+			user.setUsername(key);
+		}
+		return userService.findPage(user, page, limit);		
 	}
 	
 }

@@ -14,7 +14,7 @@ public interface StrategyService {
 	 * 返回全部列表
 	 * @return
 	 */
-	public List<TbStrategy> findAll();
+	public List<TbStrategy> findAll(TbStrategy strategy);
 	
 	
 	/**
@@ -48,7 +48,7 @@ public interface StrategyService {
 	 * 批量删除
 	 * @param ids
 	 */
-	public void delete(Integer [] ids);
+	public void delete(Integer  id);
 
 	/**
 	 * 分页

@@ -9,6 +9,12 @@ public class TbComments {
 
     private String createtime;
 
+    private String username;
+
+    private Integer aid;
+
+    private String attrname;
+
     public Integer getId() {
         return id;
     }
@@ -39,5 +45,29 @@ public class TbComments {
 
     public void setCreatetime(String createtime) {
         this.createtime = createtime == null ? null : createtime.trim();
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username == null ? null : username.trim();
+    }
+
+    public Integer getAid() {
+        return aid;
+    }
+
+    public void setAid(Integer aid) {
+        this.aid = aid;
+    }
+
+    public String getAttrname() {
+        return attrname;
+    }
+
+    public void setAttrname(String attrname) {
+        this.attrname = attrname == null ? null : attrname.trim();
     }
 }

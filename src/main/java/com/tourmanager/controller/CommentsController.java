@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
+
 import com.tourmanager.pojo.TbComments;
 import com.tourmanager.service.CommentsService;
 
@@ -107,8 +109,12 @@ public class CommentsController {
 	 * @return
 	 */
 	@RequestMapping("/search")
-	public PageResult search(@RequestBody TbComments comments, int page, int rows  ){
-		return commentsService.findPage(comments, page, rows);		
+	public PageResult search(String key , int page, int limit  ){
+		TbComments comments=new TbComments();
+		if(!StringUtils.isEmpty(key)) {
+			comments.setAid(Integer.parseInt(key));
+		}
+		return commentsService.findPage(comments, page, limit);		
 	}
 	
 }

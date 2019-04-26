@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
+
 import com.tourmanager.pojo.TbAttractions;
 import com.tourmanager.service.AttractionsService;
 
@@ -46,15 +48,26 @@ public class AttractionsController {
 	 * @param attractions
 	 * @return
 	 */
-	@RequestMapping("/add")
+	@RequestMapping("/addOrUpdate")
 	public Result add(@RequestBody TbAttractions attractions){
-		try {
-			attractionsService.add(attractions);
-			return new Result(true, "增加成功");
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new Result(false, "增加失败");
+		if(StringUtils.isEmpty(attractions.getId())) {
+			try {
+				attractionsService.add(attractions);
+				return new Result(true, "增加成功");
+			} catch (Exception e) {
+				e.printStackTrace();
+				return new Result(false, "增加失败");
+			}
+		}else {
+			try {
+				attractionsService.update(attractions);
+				return new Result(true, "修改成功");
+			} catch (Exception e) {
+				e.printStackTrace();
+				return new Result(false, "修改失败");
+			}
 		}
+		
 	}
 	
 	/**
@@ -89,9 +102,9 @@ public class AttractionsController {
 	 * @return
 	 */
 	@RequestMapping("/delete")
-	public Result delete(Integer [] ids){
+	public Result delete(@RequestBody TbAttractions attractions){
 		try {
-			attractionsService.delete(ids);
+			attractionsService.delete(attractions.getId());
 			return new Result(true, "删除成功"); 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -103,12 +116,16 @@ public class AttractionsController {
 	 * 查询+分页
 	 * @param brand
 	 * @param page
-	 * @param rows
+	 * @param limit
 	 * @return
 	 */
 	@RequestMapping("/search")
-	public PageResult search(@RequestBody TbAttractions attractions, int page, int rows  ){
-		return attractionsService.findPage(attractions, page, rows);		
+	public PageResult search(String key , int page, int limit  ){
+		TbAttractions attractions=new TbAttractions();
+		if(!StringUtils.isEmpty(key)) {
+			attractions.setAttrname(key);
+		}
+		return attractionsService.findPage(attractions, page, limit);		
 	}
 	
 }

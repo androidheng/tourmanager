@@ -6,6 +6,9 @@
     <result column="uid" property="uid" jdbcType="INTEGER" />
     <result column="content" property="content" jdbcType="VARCHAR" />
     <result column="createtime" property="createtime" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="aid" property="aid" jdbcType="INTEGER" />
+    <result column="attrname" property="attrname" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -66,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, uid, content, createtime
+    id, uid, content, createtime, username, aid, attrname
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tourmanager.pojo.TbCommentsExample" >
     select
@@ -100,9 +103,11 @@
   </delete>
   <insert id="insert" parameterType="com.tourmanager.pojo.TbComments" >
     insert into tb_comments (id, uid, content, 
-      createtime)
+      createtime, username, aid, 
+      attrname)
     values (#{id,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, 
-      #{createtime,jdbcType=VARCHAR})
+      #{createtime,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{aid,jdbcType=INTEGER}, 
+      #{attrname,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.tourmanager.pojo.TbComments" >
     insert into tb_comments
@@ -119,6 +124,15 @@
       <if test="createtime != null" >
         createtime,
       </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="aid != null" >
+        aid,
+      </if>
+      <if test="attrname != null" >
+        attrname,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -132,6 +146,15 @@
       </if>
       <if test="createtime != null" >
         #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="aid != null" >
+        #{aid,jdbcType=INTEGER},
+      </if>
+      <if test="attrname != null" >
+        #{attrname,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -156,6 +179,15 @@
       <if test="record.createtime != null" >
         createtime = #{record.createtime,jdbcType=VARCHAR},
       </if>
+      <if test="record.username != null" >
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aid != null" >
+        aid = #{record.aid,jdbcType=INTEGER},
+      </if>
+      <if test="record.attrname != null" >
+        attrname = #{record.attrname,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -166,7 +198,10 @@
     set id = #{record.id,jdbcType=INTEGER},
       uid = #{record.uid,jdbcType=INTEGER},
       content = #{record.content,jdbcType=VARCHAR},
-      createtime = #{record.createtime,jdbcType=VARCHAR}
+      createtime = #{record.createtime,jdbcType=VARCHAR},
+      username = #{record.username,jdbcType=VARCHAR},
+      aid = #{record.aid,jdbcType=INTEGER},
+      attrname = #{record.attrname,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -183,6 +218,15 @@
       <if test="createtime != null" >
         createtime = #{createtime,jdbcType=VARCHAR},
       </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="aid != null" >
+        aid = #{aid,jdbcType=INTEGER},
+      </if>
+      <if test="attrname != null" >
+        attrname = #{attrname,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -190,7 +234,10 @@
     update tb_comments
     set uid = #{uid,jdbcType=INTEGER},
       content = #{content,jdbcType=VARCHAR},
-      createtime = #{createtime,jdbcType=VARCHAR}
+      createtime = #{createtime,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      aid = #{aid,jdbcType=INTEGER},
+      attrname = #{attrname,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

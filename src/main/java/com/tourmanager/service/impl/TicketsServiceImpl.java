@@ -55,7 +55,7 @@ public class TicketsServiceImpl implements TicketsService {
 	 */
 	@Override
 	public void update(TbTickets tickets){
-		ticketsMapper.updateByPrimaryKey(tickets);
+		ticketsMapper.updateByPrimaryKeySelective(tickets);
 	}	
 	
 	/**

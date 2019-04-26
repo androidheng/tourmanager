@@ -2,6 +2,8 @@ package com.tourmanager.service.impl;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.tourmanager.mapper.TbStrategyMapper;
@@ -27,8 +29,23 @@ public class StrategyServiceImpl implements StrategyService {
 	 * 查询全部
 	 */
 	@Override
-	public List<TbStrategy> findAll() {
-		return strategyMapper.selectByExample(null);
+	public List<TbStrategy> findAll(TbStrategy strategy) {
+		TbStrategyExample example=new TbStrategyExample();
+		Criteria criteria = example.createCriteria();
+		
+		if(strategy!=null){			
+			if(!StringUtils.isEmpty(strategy.getCity())) {
+				criteria.andCityLike("%"+strategy.getCity()+"%");
+			}
+			if(!StringUtils.isEmpty(strategy.getCitytype())) {
+				criteria.andCitytypeEqualTo(strategy.getCitytype());
+			}
+			if(!StringUtils.isEmpty(strategy.getStatus())) {
+				criteria.andStatusEqualTo(strategy.getStatus());
+			}
+		}
+		
+		return strategyMapper.selectByExampleWithBLOBs(example);
 	}
 
 	/**
@@ -55,13 +72,16 @@ public class StrategyServiceImpl implements StrategyService {
 	 */
 	@Override
 	public void update(TbStrategy strategy){
-		strategyMapper.updateByPrimaryKey(strategy);
+		strategyMapper.updateByPrimaryKeySelective(strategy);
 	}	
 	
 	/**
 	 * 根据ID获取实体
 	 * @param id
 	 * @return
+	 */
+	/* (non-Javadoc)
+	 * @see com.tourmanager.service.StrategyService#findOne(java.lang.Integer)
 	 */
 	@Override
 	public TbStrategy findOne(Integer id){
@@ -72,10 +92,8 @@ public class StrategyServiceImpl implements StrategyService {
 	 * 批量删除
 	 */
 	@Override
-	public void delete(Integer[] ids) {
-		for(Integer id:ids){
+	public void delete(Integer id) {
 			strategyMapper.deleteByPrimaryKey(id);
-		}		
 	}
 	
 	
@@ -87,10 +105,18 @@ public class StrategyServiceImpl implements StrategyService {
 		Criteria criteria = example.createCriteria();
 		
 		if(strategy!=null){			
-				
+			if(!StringUtils.isEmpty(strategy.getCity())) {
+				criteria.andCityLike("%"+strategy.getCity()+"%");
+			}
+			if(!StringUtils.isEmpty(strategy.getCitytype())) {
+				criteria.andCitytypeEqualTo(strategy.getCitytype());
+			}
+			if(!StringUtils.isEmpty(strategy.getStatus())) {
+				criteria.andStatusEqualTo(strategy.getStatus());
+			}
 		}
 		
-		Page<TbStrategy> page= (Page<TbStrategy>)strategyMapper.selectByExample(example);		
+		Page<TbStrategy> page= (Page<TbStrategy>)strategyMapper.selectByExampleWithBLOBs(example);		
 		return new PageResult(0,"",page.getTotal(), page.getResult());
 	}
 	

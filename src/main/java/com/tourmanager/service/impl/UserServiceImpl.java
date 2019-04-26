@@ -2,6 +2,8 @@ package com.tourmanager.service.impl;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.tourmanager.mapper.TbUserMapper;
@@ -55,7 +57,7 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public void update(TbUser user){
-		userMapper.updateByPrimaryKey(user);
+		userMapper.updateByPrimaryKeySelective(user);
 	}	
 	
 	/**
@@ -87,7 +89,9 @@ public class UserServiceImpl implements UserService {
 		Criteria criteria = example.createCriteria();
 		
 		if(user!=null){			
-				
+			if(StringUtils.isEmpty(user.getUsername())) {
+				criteria.andUsernameLike("%"+user.getUsername()+"%");
+			}	
 		}
 		
 		Page<TbUser> page= (Page<TbUser>)userMapper.selectByExample(example);		
