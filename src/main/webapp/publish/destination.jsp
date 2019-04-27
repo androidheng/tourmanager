@@ -86,13 +86,14 @@
         <div class="layui-row">
             <div class="layui-card">
                 <div class="layui-card-body">
-                   <form class="layui-form" action="">
+                  
                      <div class="demoTable">
                                                                         目的地名称：
                        <div class="layui-inline">
                          <input type="text" id="demoReload"  lay-verify="required" autocomplete="off" placeholder="请输入目的地名称" class="layui-input">  
                        </div>
                        <div class="layui-inline">
+                        <form class="layui-form" >
                                                                               用户类型
                          <div class="layui-inline">
                            <select  id="citytype" lay-verify="required">
@@ -101,8 +102,10 @@
                              <option value="1">国外</option>
                            </select>
                         </div>
+                        </form>
                       </div>
                       <div class="layui-inline">
+                        <form class="layui-form" >
                                                                               用户类型
                          <div class="layui-inline">
                            <select  id="status" lay-verify="required">
@@ -111,10 +114,10 @@
                              <option value="1">已审核</option>
                            </select>
                         </div>
+                        </form>
                       </div>
                       <button class="layui-btn" data-type="reload">查询</button>
                     </div>
-                    </form>
                     <table id="demo" lay-filter="demo" ></table>
                 </div>
             </div>

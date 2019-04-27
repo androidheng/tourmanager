@@ -15,7 +15,6 @@
 <body class="layui-layout-body">
     <div class="layui-layout layui-layout-admin">
         <div class="layui-header custom-header">
-            
             <ul class="layui-nav layui-layout-left">
                 <li class="layui-nav-item slide-sidebar" lay-unselect>
                     <a href="javascript:;" class="icon-font"><i class="ai ai-menufold"></i></a>
@@ -42,15 +41,15 @@
                 <ul id="Nav" class="layui-nav layui-nav-tree">
 
                     <li class="layui-nav-item">
-                            <a href="<%=basePath%>admin.jsp">
+                            <a href="<%=basePath%>audit/destination.jsp">
                                 <i class="layui-icon">&#xe612;</i>
-                                <em>用户管理</em>
+                                <em>目的地信息</em>
                             </a>
                         </li>
                     <li class="layui-nav-item">
-                            <a href="<%=basePath%>strategy.jsp">
+                            <a href="<%=basePath%>audit/strategy.jsp">
                                  <i class="layui-icon">&#xe612;</i>
-                                 <em>攻略管理</em>
+                                 <em>景点信息</em>
                              </a>
                     </li>
                 </ul>
