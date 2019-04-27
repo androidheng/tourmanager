@@ -17,6 +17,8 @@ public class TbStrategy {
 
     private Integer clicks;
 
+    private String introduction;
+
     private String content;
 
     public Integer getId() {
@@ -81,6 +83,14 @@ public class TbStrategy {
 
     public void setClicks(Integer clicks) {
         this.clicks = clicks;
+    }
+
+    public String getIntroduction() {
+        return introduction;
+    }
+
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction == null ? null : introduction.trim();
     }
 
     public String getContent() {

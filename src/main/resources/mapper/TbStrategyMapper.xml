@@ -10,6 +10,7 @@
     <result column="startage" property="startage" jdbcType="VARCHAR" />
     <result column="endage" property="endage" jdbcType="VARCHAR" />
     <result column="clicks" property="clicks" jdbcType="INTEGER" />
+    <result column="introduction" property="introduction" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.tourmanager.pojo.TbStrategy" extends="BaseResultMap" >
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
@@ -73,7 +74,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, city, logo, citytype, status, startage, endage, clicks
+    id, city, logo, citytype, status, startage, endage, clicks, introduction
   </sql>
   <sql id="Blob_Column_List" >
     content
@@ -129,12 +130,12 @@
   <insert id="insert" parameterType="com.tourmanager.pojo.TbStrategy" >
     insert into tb_strategy (id, city, logo, 
       citytype, status, startage, 
-      endage, clicks, content
-      )
+      endage, clicks, introduction, 
+      content)
     values (#{id,jdbcType=INTEGER}, #{city,jdbcType=VARCHAR}, #{logo,jdbcType=VARCHAR}, 
       #{citytype,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{startage,jdbcType=VARCHAR}, 
-      #{endage,jdbcType=VARCHAR}, #{clicks,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR}
-      )
+      #{endage,jdbcType=VARCHAR}, #{clicks,jdbcType=INTEGER}, #{introduction,jdbcType=VARCHAR}, 
+      #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.tourmanager.pojo.TbStrategy" >
     insert into tb_strategy
@@ -162,6 +163,9 @@
       </if>
       <if test="clicks != null" >
         clicks,
+      </if>
+      <if test="introduction != null" >
+        introduction,
       </if>
       <if test="content != null" >
         content,
@@ -191,6 +195,9 @@
       </if>
       <if test="clicks != null" >
         #{clicks,jdbcType=INTEGER},
+      </if>
+      <if test="introduction != null" >
+        #{introduction,jdbcType=VARCHAR},
       </if>
       <if test="content != null" >
         #{content,jdbcType=LONGVARCHAR},
@@ -230,6 +237,9 @@
       <if test="record.clicks != null" >
         clicks = #{record.clicks,jdbcType=INTEGER},
       </if>
+      <if test="record.introduction != null" >
+        introduction = #{record.introduction,jdbcType=VARCHAR},
+      </if>
       <if test="record.content != null" >
         content = #{record.content,jdbcType=LONGVARCHAR},
       </if>
@@ -248,6 +258,7 @@
       startage = #{record.startage,jdbcType=VARCHAR},
       endage = #{record.endage,jdbcType=VARCHAR},
       clicks = #{record.clicks,jdbcType=INTEGER},
+      introduction = #{record.introduction,jdbcType=VARCHAR},
       content = #{record.content,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -262,7 +273,8 @@
       status = #{record.status,jdbcType=VARCHAR},
       startage = #{record.startage,jdbcType=VARCHAR},
       endage = #{record.endage,jdbcType=VARCHAR},
-      clicks = #{record.clicks,jdbcType=INTEGER}
+      clicks = #{record.clicks,jdbcType=INTEGER},
+      introduction = #{record.introduction,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -291,6 +303,9 @@
       <if test="clicks != null" >
         clicks = #{clicks,jdbcType=INTEGER},
       </if>
+      <if test="introduction != null" >
+        introduction = #{introduction,jdbcType=VARCHAR},
+      </if>
       <if test="content != null" >
         content = #{content,jdbcType=LONGVARCHAR},
       </if>
@@ -306,6 +321,7 @@
       startage = #{startage,jdbcType=VARCHAR},
       endage = #{endage,jdbcType=VARCHAR},
       clicks = #{clicks,jdbcType=INTEGER},
+      introduction = #{introduction,jdbcType=VARCHAR},
       content = #{content,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -317,7 +333,8 @@
       status = #{status,jdbcType=VARCHAR},
       startage = #{startage,jdbcType=VARCHAR},
       endage = #{endage,jdbcType=VARCHAR},
-      clicks = #{clicks,jdbcType=INTEGER}
+      clicks = #{clicks,jdbcType=INTEGER},
+      introduction = #{introduction,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -85,7 +85,7 @@ public class AdminServiceImpl implements AdminService {
 		
 		TbAdminExample example=new TbAdminExample();
 		Criteria criteria = example.createCriteria();
-		
+		criteria.andUsertypeNotEqualTo("0");
 		if(admin!=null){			
 			if(!StringUtils.isEmpty(admin.getUsername())) {
 				criteria.andUsernameLike("%"+admin.getUsername()+"%");

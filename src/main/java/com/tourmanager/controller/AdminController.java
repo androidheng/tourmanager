@@ -3,11 +3,12 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tourmanager.pojo.TbAdmin;
 import com.tourmanager.service.AdminService;
@@ -20,7 +21,7 @@ import entity.Result;
  * @author Administrator
  *
  */
-@RestController
+@Controller
 @RequestMapping("/admin")
 public class AdminController {
 
@@ -31,6 +32,7 @@ public class AdminController {
 	 * @param admin
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/login")
 	public Result login(@RequestBody TbAdmin admin,HttpSession session){
 		try {
@@ -69,6 +71,7 @@ public class AdminController {
 	 * @param admin
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/addOrUpdate")
 	public Result addOrUpdate(@RequestBody TbAdmin admin){
 		if(StringUtils.isEmpty(admin.getId())) {
@@ -123,6 +126,7 @@ public class AdminController {
 	 * @param id
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/delete")
 	public Result delete(@RequestBody TbAdmin admin){
 		try {
@@ -141,6 +145,7 @@ public class AdminController {
 	 * @param rows
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/search")
 	public PageResult search(String usertype,String key , int page, int limit  ){
 		TbAdmin admin=new TbAdmin();

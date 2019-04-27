@@ -3,11 +3,12 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tourmanager.pojo.TbAdmin;
 import com.tourmanager.pojo.TbStrategy;
@@ -20,7 +21,7 @@ import entity.Result;
  * @author Administrator
  *
  */
-@RestController
+@Controller
 @RequestMapping("/strategy")
 public class StrategyController {
 
@@ -51,10 +52,11 @@ public class StrategyController {
 	 * @param strategy
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/addOrUpdate")
 	public Result add(@RequestBody TbStrategy strategy,HttpSession session){
 		TbAdmin loginAdmin=(TbAdmin) session.getAttribute("login");
-		if(loginAdmin==null) {
+		if(loginAdmin!=null) {
 			if(StringUtils.isEmpty(strategy.getId())) {
 				try {
 					if(loginAdmin.getUsertype().equals("2")) {
@@ -62,6 +64,7 @@ public class StrategyController {
 					}else if(loginAdmin.getUsertype().equals("3")) {
 						strategy.setStatus("1");//审核信息者添加的可以直接发布
 					}
+					strategy.setClicks(0);
 					strategyService.add(strategy);
 					return new Result(true, "增加成功");
 				} catch (Exception e) {
@@ -89,6 +92,7 @@ public class StrategyController {
 	 * @param strategy
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/update")
 	public Result update(@RequestBody TbStrategy strategy){
 		try {
@@ -99,7 +103,24 @@ public class StrategyController {
 			return new Result(false, "修改失败");
 		}
 	}	
-	
+	/**
+	 * 攻略被点击一次
+	 * @param strategy
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/clicks")
+	public Result clicks(int id){
+		try {
+			TbStrategy strategy = strategyService.findOne(id);
+			strategy.setClicks(strategy.getClicks()+1);
+			strategyService.update(strategy);
+			return new Result(true, "修改成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Result(false, "修改失败");
+		}
+	}
 	/**
 	 * 获取实体
 	 * @param id
@@ -115,6 +136,7 @@ public class StrategyController {
 	 * @param ids
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/delete")
 	public Result delete(Integer  id){
 		try {
@@ -133,6 +155,7 @@ public class StrategyController {
 	 * @param rows
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/search")
 	public PageResult search(String citytype,String key,String status , int page, int limit  ){
 		TbStrategy strategy=new TbStrategy();
