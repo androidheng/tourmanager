@@ -132,15 +132,15 @@ public class StrategyController {
 	}
 	
 	/**
-	 * 批量删除
-	 * @param ids
+	 * 删除
+	 * @param id
 	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping("/delete")
-	public Result delete(Integer  id){
+	public Result delete(@RequestBody TbStrategy strategy){
 		try {
-			strategyService.delete(id);
+			strategyService.delete(strategy.getId());
 			return new Result(true, "删除成功"); 
 		} catch (Exception e) {
 			e.printStackTrace();
