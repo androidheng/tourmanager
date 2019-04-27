@@ -29,7 +29,7 @@
             <div class="layui-card">
                 <div class="layui-card-body">
                      <div class="demoTable">
-                                                                            查询条件：
+                                                                            景点名称：
                       <div class="layui-inline">
                         <input type="text" id="demoReload" name="demoReload" lay-verify="required" autocomplete="off" placeholder="请输入联系电话" class="layui-input">  
                       </div>
@@ -60,7 +60,7 @@
          table.render({
            elem: '#demo'
           ,toolbar: '#toolbarDemo'
-          ,url:'<%=basePath%>swork/myWork'
+          ,url:'<%=basePath%>attractions/search'
           ,cols: [[ //标题栏
              {field: 'committime', title: '提交时间', }
             ,{field: 'status', title: '批改状态'}

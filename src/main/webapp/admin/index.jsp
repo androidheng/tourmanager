@@ -42,15 +42,15 @@
                 <ul id="Nav" class="layui-nav layui-nav-tree">
 
                     <li class="layui-nav-item">
-                            <a href="<%=basePath%>admin.jsp">
+                            <a href="<%=basePath%>admin/user.jsp">
                                 <i class="layui-icon">&#xe612;</i>
                                 <em>用户管理</em>
                             </a>
                         </li>
                     <li class="layui-nav-item">
-                            <a href="<%=basePath%>strategy.jsp">
+                            <a href="<%=basePath%>statistics.jsp">
                                  <i class="layui-icon">&#xe612;</i>
-                                 <em>攻略管理</em>
+                                 <em>统计信息</em>
                              </a>
                     </li>
                 </ul>

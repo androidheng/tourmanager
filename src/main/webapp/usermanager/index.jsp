@@ -42,15 +42,27 @@
                 <ul id="Nav" class="layui-nav layui-nav-tree">
 
                     <li class="layui-nav-item">
-                            <a href="<%=basePath%>admin.jsp">
+                            <a href="<%=basePath%>usermanager/user.jsp">
                                 <i class="layui-icon">&#xe612;</i>
-                                <em>用户管理</em>
+                                <em>用户列表</em>
                             </a>
                         </li>
                     <li class="layui-nav-item">
-                            <a href="<%=basePath%>strategy.jsp">
+                            <a href="<%=basePath%>usermanager/comment.jsp">
                                  <i class="layui-icon">&#xe612;</i>
-                                 <em>攻略管理</em>
+                                 <em>评论列表</em>
+                             </a>
+                    </li>
+                     <li class="layui-nav-item">
+                            <a href="<%=basePath%>usermanager/Feedback.jsp">
+                                 <i class="layui-icon">&#xe612;</i>
+                                 <em>反馈列表</em>
+                             </a>
+                    </li>
+                     <li class="layui-nav-item">
+                            <a href="<%=basePath%>usermanager/message.jsp">
+                                 <i class="layui-icon">&#xe612;</i>
+                                 <em>消息列表</em>
                              </a>
                     </li>
                 </ul>

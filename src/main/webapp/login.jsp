@@ -15,10 +15,17 @@
        h4{
          width:100%;
          text-align:center;
+         margin-bottom:10px;
        }
-       .login-form .input-group .input-field{
-         width:80%;
-         display:inline-block;
+       .layui-form-label{
+         text-align:left;
+       }
+       .layui-form-label{
+         width:60px;
+       
+       }
+       .layui-input-block{
+         margin-left:90px;
        }
     </style>
 </head>
@@ -27,64 +34,70 @@
         <form class="login-form layui-form"  action="">
             <h4>管理后台</h4>
             <div class="layui-form-item">
-                <div class="input-group">
-                    <span class="label-title">用户名</span>
-                    <input type="text" id="username" name="username" lay-verify="userName" value="admin" class="input-field">
-                   
-                </div>
+                <label class="layui-form-label">用户名</label>
+                  <div class="layui-input-block">
+                    <input type="text" id="username" name="username" lay-verify="username"  class="layui-input">
+                  </div>
             </div>
-          
-            <div class="input-group">
-                <span class="label-title">密码</span>
-                <input type="password" name="password" value="admin"  id="password" lay-verify="pass" class="input-field">
-            </div>
-           
-            <a href="<%=basePath%>index.jsp">
-               <button type="button" class="login-button" lay-submit="" lay-filter="login">登录<i class="ai ai-enter"></i></button>
-            </a>
+           <div class="layui-form-item">
+             <label class="layui-form-label">密码</label>
+             <div class="layui-input-block">
+                <input type="password" name="password"  id="password" lay-verify="required" class="layui-input">
+             </div>
+           </div>
+           <div class="layui-form-item">
+             <label class="layui-form-label">角色类型</label>
+               <div class="layui-input-block">
+                    <select name="usertype" lay-verify="required">
+                        <option value=""></option>
+                        <option value="0">管理员</option>
+                        <option value="1">用户管理者</option>
+                        <option value="2">发布信息者</option>
+                        <option value="3">审核信息者</option>
+                    </select>
+                 </div>
+            
+           </div>
+          <button type="button" class="login-button" lay-submit="" lay-filter="login">登录<i class="ai ai-enter"></i></button>
         </form>
     </div>
 </body>
 <script src="<%=basePath%>assets/layui.js"></script>
 <script src="<%=basePath%>/js/login.js"></script>
-<!--  <script>
+  <script>
 	  layui.use(['form'], function(){
       var form = layui.form
       ,layer = layui.layer
       ,$ = layui.$
       //自定义验证规则
       form.verify({
-        userName: function(value){
+    	 username: function(value){
           if(value.length < 3){
             return '用户名至少得3个字符啊';
           }
-        },
-        city:function(value){
-          if(!value.length){
-            return '请选择站点';
-          }
-         }
-        ,pass: [
-          /^[\S]{6,12}$/
-          ,'密码必须6到12位，且不能出现空格'
-        ]
-      });*/
-  
-   
-     
-      //监听提交
+        }
+        
+      });
+    
+     //监听提交
      form.on('submit(login)', function(data){
-    	  data.field.cid = + data.field.cid
+    	  let actions = {
+    		'0':'admin',
+    		'1':'usermanager',
+    		'2':'publish',
+    		'3':'audit'
+    	  }
+ 
     	  $.ajax({
-            url:"<%=basePath%>user/login",
+            url:"<%=basePath%>admin/login",
             type:'post',//method请求方式，get或者post
             dataType:'json',//预期服务器返回的数据类型
             data:JSON.stringify(data.field),//表格数据序列化
             contentType: "application/json; charset=utf-8",
             success:function(res){//res为相应体,function为回调函数
               if(res.success){
-                layer.alert(res.message,{icon:1});
-                 location.href="<%=basePath%>index.jsp";
+                //layer.alert(res.message,{icon:1});
+                location.href="<%=basePath%>"+actions[data.field.usertype]+"/index.jsp";
               
               }else{
                 layer.alert(res.message,{icon: 5});
@@ -99,5 +112,5 @@
       });
      });
    
-    </script>-->
+    </script>
 </html>
