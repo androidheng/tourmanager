@@ -51,7 +51,7 @@ public class MessageController {
 	 */
 	@RequestMapping("/addOrUpdate")
 	public Result add(@RequestBody TbMessage message){
-		if(!StringUtils.isEmpty(message.getId())) {
+		if(StringUtils.isEmpty(message.getId())) {
 			try {
 				message.setCreatetime(DateUtils.getCurrent());
 				messageService.add(message);
