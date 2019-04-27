@@ -122,12 +122,12 @@ public class MessageController {
 	 * @return
 	 */
 	@RequestMapping("/search")
-	public PageResult search(String key , int page, int rows  ){
+	public PageResult search(String key , int page, int limit  ){
 		TbMessage message=new TbMessage();
 		if(!StringUtils.isEmpty(key)) {
 //			message.
 		}
-		return messageService.findPage(message, page, rows);		
+		return messageService.findPage(message, page, limit);		
 	}
 	
 }
