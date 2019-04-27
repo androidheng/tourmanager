@@ -89,7 +89,7 @@ public class UserServiceImpl implements UserService {
 		Criteria criteria = example.createCriteria();
 		
 		if(user!=null){			
-			if(StringUtils.isEmpty(user.getUsername())) {
+			if(!StringUtils.isEmpty(user.getUsername())) {
 				criteria.andUsernameLike("%"+user.getUsername()+"%");
 			}	
 		}

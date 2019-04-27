@@ -111,7 +111,7 @@ public class UserController {
 	@RequestMapping("/search")
 	public PageResult search(String key , int page, int limit  ){
 		TbUser user=new TbUser();
-		if(StringUtils.isEmpty(key)) {
+		if(!StringUtils.isEmpty(key)) {
 			user.setUsername(key);
 		}
 		return userService.findPage(user, page, limit);		
