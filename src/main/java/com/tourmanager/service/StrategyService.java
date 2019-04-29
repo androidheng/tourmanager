@@ -57,5 +57,8 @@ public interface StrategyService {
 	 * @return
 	 */
 	public PageResult findPage(TbStrategy strategy, int pageNum,int pageSize);
+
+
+	public List<TbStrategy> findNoLoginAll();
 	
 }

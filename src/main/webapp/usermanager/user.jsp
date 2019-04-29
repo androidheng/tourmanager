@@ -42,7 +42,7 @@
         </div>
     </div>
    </div>
-   <script src="<%=basePath%>assets/layui.js"></script>
+   <script src="<%=basePath%>assets/layui.all.js"></script>
    <script>
     layui.use('table', function(){
     	 var table = layui.table,form = layui.form,$=layui.$;

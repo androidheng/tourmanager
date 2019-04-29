@@ -80,7 +80,6 @@
         </div>
     </div>
    </div>
-     <script src="https://heerey525.github.io/layui-v2.4.3/layui-v2.4.5/layui.js"></script>
     <script type="text/html" id="toolbarDemo">
      <div class="layui-btn-container">
         <button class="layui-btn layui-btn-sm" lay-event="add">添加用户</button>

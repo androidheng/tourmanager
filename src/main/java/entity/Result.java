@@ -43,5 +43,12 @@ public class Result implements Serializable{
 		this.success = success;
 		this.data = data;
 	}
+	public Result(boolean success, String message, Object data) {
+		super();
+		this.success = success;
+		this.message = message;
+		this.data = data;
+	}
+	
 	
 }

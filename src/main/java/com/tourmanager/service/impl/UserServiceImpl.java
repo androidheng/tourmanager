@@ -97,5 +97,26 @@ public class UserServiceImpl implements UserService {
 		Page<TbUser> page= (Page<TbUser>)userMapper.selectByExample(example);		
 		return new PageResult(0,"",page.getTotal(), page.getResult());
 	}
+
+		@Override
+		public TbUser login(TbUser user) {
+			TbUserExample example=new TbUserExample();
+			Criteria criteria = example.createCriteria();
+			
+			if(user!=null){			
+				if(!StringUtils.isEmpty(user.getUsername())) {
+					criteria.andUsernameEqualTo(user.getUsername());
+				}	
+				if(!StringUtils.isEmpty(user.getPassword())) {
+					criteria.andPasswordEqualTo(user.getPassword());
+				}	
+			}
+			
+			List<TbUser> list = userMapper.selectByExample(example);
+			if(list.size()>0) {
+				return list.get(0);
+			}
+			return null;
+		}
 	
 }

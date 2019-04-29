@@ -119,5 +119,10 @@ public class StrategyServiceImpl implements StrategyService {
 		Page<TbStrategy> page= (Page<TbStrategy>)strategyMapper.selectByExampleWithBLOBs(example);		
 		return new PageResult(0,"",page.getTotal(), page.getResult());
 	}
+
+		@Override
+		public List<TbStrategy> findNoLoginAll() {
+			return strategyMapper.findNoLoginAll();
+		}
 	
 }

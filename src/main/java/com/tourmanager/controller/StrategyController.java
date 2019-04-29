@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tourmanager.pojo.TbAdmin;
@@ -29,9 +30,19 @@ public class StrategyController {
 	private StrategyService strategyService;
 	
 	/**
+	 * 返回全部没有登录的列表
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/findNoLoginAll")
+	public Result findNoLoginAll(){			
+		return new Result(true, strategyService.findNoLoginAll());
+	}
+	/**
 	 * 返回全部列表
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/findAll")
 	public List<TbStrategy> findAll(@RequestBody TbStrategy strategy){			
 		return strategyService.findAll(strategy);
@@ -110,11 +121,11 @@ public class StrategyController {
 	 */
 	@ResponseBody
 	@RequestMapping("/clicks")
-	public Result clicks(int id){
+	public Result clicks(@RequestBody TbStrategy strategy){
 		try {
-			TbStrategy strategy = strategyService.findOne(id);
-			strategy.setClicks(strategy.getClicks()+1);
-			strategyService.update(strategy);
+			TbStrategy newStrategy = strategyService.findOne(strategy.getId());
+			newStrategy.setClicks(newStrategy.getClicks()+1);
+			strategyService.update(newStrategy);
 			return new Result(true, "修改成功");
 		} catch (Exception e) {
 			e.printStackTrace();

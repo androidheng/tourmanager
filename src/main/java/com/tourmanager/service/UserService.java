@@ -57,5 +57,8 @@ public interface UserService {
 	 * @return
 	 */
 	public PageResult findPage(TbUser user, int pageNum,int pageSize);
+
+
+	public TbUser login(TbUser user);
 	
 }
