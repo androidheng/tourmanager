@@ -64,7 +64,6 @@
                           <form class="layui-form" action="">
                            <select  id="usertype" lay-verify="required">
                              <option value=""></option>
-                             <option value="0">管理员</option>
                              <option value="1">用户管理者</option>
                              <option value="2">发布信息者</option>
                              <option value="3">审核信息者</option>
@@ -80,6 +79,7 @@
         </div>
     </div>
    </div>
+    <script src="<%=basePath%>assets/layui.all.js"></script>
     <script type="text/html" id="toolbarDemo">
      <div class="layui-btn-container">
         <button class="layui-btn layui-btn-sm" lay-event="add">添加用户</button>

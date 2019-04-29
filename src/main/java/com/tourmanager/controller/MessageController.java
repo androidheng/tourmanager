@@ -125,7 +125,7 @@ public class MessageController {
 	public PageResult search(String key , int page, int limit  ){
 		TbMessage message=new TbMessage();
 		if(!StringUtils.isEmpty(key)) {
-//			message.
+			message.setContent(key);
 		}
 		return messageService.findPage(message, page, limit);		
 	}

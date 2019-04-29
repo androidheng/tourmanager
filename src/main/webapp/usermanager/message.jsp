@@ -36,9 +36,9 @@
             <div class="layui-card">
                 <div class="layui-card-body">
                      <div class="demoTable">
-                                                                       用户名称：
+                                                                       消息内容：
                       <div class="layui-inline">
-                         <input type="text" id="demoReload"  lay-verify="required" autocomplete="off" placeholder="请输入用户名" class="layui-input">  
+                         <input type="text" id="demoReload"  lay-verify="required" autocomplete="off" placeholder="请输入消息内容" class="layui-input">  
                       </div>
                       <button class="layui-btn" data-type="reload">查询</button>
                     </div>

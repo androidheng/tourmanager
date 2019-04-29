@@ -94,7 +94,7 @@
                        </div>
                        <div class="layui-inline">
                         <form class="layui-form" >
-                                                                              用户类型
+                                                                              城市类型
                          <div class="layui-inline">
                            <select  id="citytype" lay-verify="required">
                              <option value=""></option>
@@ -106,7 +106,7 @@
                       </div>
                       <div class="layui-inline">
                         <form class="layui-form" >
-                                                                              用户类型
+                                                                              状态
                          <div class="layui-inline">
                            <select  id="status" lay-verify="required">
                              <option value=""></option>
@@ -124,7 +124,9 @@
         </div>
     </div>
    </div>
-      <script src="<%=basePath%>assets/layui.all.js"></script>
+<!--     <script src="https://heerey525.github.io/layui-v2.4.3/layui-v2.4.5/layui.js"></script> -->
+   
+    <script src="<%=basePath%>assets/layui.all.js"></script> 
     <script type="text/html" id="toolbarDemo">
      <div class="layui-btn-container">
         <button class="layui-btn layui-btn-sm" lay-event="add">添加目的地</button>

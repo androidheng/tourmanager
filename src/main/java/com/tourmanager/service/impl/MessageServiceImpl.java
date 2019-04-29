@@ -2,6 +2,8 @@ package com.tourmanager.service.impl;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.tourmanager.mapper.TbMessageMapper;
@@ -85,7 +87,9 @@ public class MessageServiceImpl implements MessageService {
 		Criteria criteria = example.createCriteria();
 		
 		if(message!=null){			
-				
+			if(!StringUtils.isEmpty(message.getContent())) {
+				criteria.andContentLike("%"+message.getContent()+"%");
+			}	
 		}
 		
 		Page<TbMessage> page= (Page<TbMessage>)messageMapper.selectByExample(example);		
