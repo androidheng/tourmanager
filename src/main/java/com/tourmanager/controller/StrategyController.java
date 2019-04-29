@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tourmanager.pojo.TbAdmin;
 import com.tourmanager.pojo.TbStrategy;
+import com.tourmanager.pojo.TbUser;
 import com.tourmanager.service.StrategyService;
 
 import entity.PageResult;
@@ -28,7 +29,14 @@ public class StrategyController {
 
 	@Autowired
 	private StrategyService strategyService;
-	
+	/**
+	 * 首页轮播图(点击次数最多的三个)
+	 */
+	@ResponseBody
+	@RequestMapping("/findBanner")
+	public Result findBanner(){			
+		return new Result(true, strategyService.findBanner());
+	}
 	/**
 	 * 返回全部没有登录的列表
 	 * @return
@@ -37,6 +45,15 @@ public class StrategyController {
 	@RequestMapping("/findNoLoginAll")
 	public Result findNoLoginAll(){			
 		return new Result(true, strategyService.findNoLoginAll());
+	}
+	/**
+	 * 根据年龄推荐的列表
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/findLoginAll")
+	public Result findLoginAll(@RequestBody TbUser user){			
+		return new Result(true, strategyService.findLoginAll(user));
 	}
 	/**
 	 * 返回全部列表

@@ -1,6 +1,7 @@
 package com.tourmanager.service;
 import java.util.List;
 import com.tourmanager.pojo.TbStrategy;
+import com.tourmanager.pojo.TbUser;
 
 import entity.PageResult;
 /**
@@ -60,5 +61,11 @@ public interface StrategyService {
 
 
 	public List<TbStrategy> findNoLoginAll();
+
+
+	public List<TbStrategy> findBanner();
+
+
+	public List<TbStrategy> findLoginAll(TbUser user);
 	
 }

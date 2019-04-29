@@ -9,6 +9,7 @@ import com.github.pagehelper.PageHelper;
 import com.tourmanager.mapper.TbStrategyMapper;
 import com.tourmanager.pojo.TbStrategy;
 import com.tourmanager.pojo.TbStrategyExample;
+import com.tourmanager.pojo.TbUser;
 import com.tourmanager.pojo.TbStrategyExample.Criteria;
 import com.tourmanager.service.StrategyService;
 
@@ -123,6 +124,19 @@ public class StrategyServiceImpl implements StrategyService {
 		@Override
 		public List<TbStrategy> findNoLoginAll() {
 			return strategyMapper.findNoLoginAll();
+		}
+
+		@Override
+		public List<TbStrategy> findBanner() {
+			return strategyMapper.findBanner();
+		}
+		@Override
+		public List<TbStrategy> findLoginAll(TbUser user) {
+			TbStrategyExample example=new TbStrategyExample();
+			Criteria criteria = example.createCriteria();
+			criteria.andStartageGreaterThan(user.getAge());
+			criteria.andEndageLessThan(user.getAge());
+			return strategyMapper.findBanner();
 		}
 	
 }

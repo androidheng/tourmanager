@@ -338,6 +338,9 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="findNoLoginAll" resultMap="BaseResultMap">
-  	select  <include refid="Base_Column_List" /> from tb_strategy order by clicks desc limit 0,5
+  	select  <include refid="Base_Column_List" /> from tb_strategy order by  RAND() LIMIT 5
+  </select>
+  <select id="findBanner" resultMap="BaseResultMap">
+  	select  <include refid="Base_Column_List" /> from tb_strategy order by clicks desc limit 0,3
   </select>
 </mapper>

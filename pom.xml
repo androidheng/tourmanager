@@ -140,7 +140,7 @@
 				<artifactId>jetty-maven-plugin</artifactId>
 				<configuration>
 					<httpConnector>
-						<port>8090</port>
+						<port>8080</port>
 					</httpConnector>
 					<stopKey>shutdown</stopKey>
 					<stopPort>9966</stopPort>

@@ -14,7 +14,7 @@
 </head>
 <body class="layui-view-body">
      <div class="layui-content" id="box" style="display:none">
-        <form class="layui-form" action="" lay-filter="example">
+        <form class="layui-form"  lay-filter="example">
            <div class="layui-form-item">
                <label class="layui-form-label">城市</label>
                <div class="layui-input-block">
@@ -124,9 +124,9 @@
         </div>
     </div>
    </div>
-<!--     <script src="https://heerey525.github.io/layui-v2.4.3/layui-v2.4.5/layui.js"></script> -->
+     <%--<script src="https://heerey525.github.io/layui-v2.4.3/layui-v2.4.5/layui.js"></script>--%>
    
-    <script src="<%=basePath%>assets/layui.all.js"></script> 
+     <script src="<%=basePath%>assets/layui.all.js"></script>  
     <script type="text/html" id="toolbarDemo">
      <div class="layui-btn-container">
         <button class="layui-btn layui-btn-sm" lay-event="add">添加目的地</button>
@@ -199,6 +199,7 @@
     	  };
        });
        function add(rowData){
+    	   //console.log(rowData)
     	   rowData&&form.val('example', rowData)
     	   layer.open({
     	         type: 1
@@ -248,8 +249,7 @@
 
                        //提交
                   form.on('submit(formDemo)', function(data){
-                	  data.field.logo = rowData.logo||logo;
-                	  console.log(rowData)
+                	  data.field.logo =rowData?rowData.logo:logo;
                 	  rowData&&(data.field.id=rowData.id)
                 	  delete data.field.file
                 	  $.ajax({
@@ -259,8 +259,12 @@
                           data:JSON.stringify(data.field),
                           contentType: "application/json; charset=utf-8",
                           success:function(res){//res为相应体,function为回调函数
-                       	      layer.close(index);
-                              $(".layui-laypage-btn")[0].click();
+                        	  if(res.success){
+                        		  layer.alert('添加成功',{icon:1});
+                        		  layer.close(index);
+                                  $(".layui-laypage-btn")[0].click();
+                        	  }
+                       	     
                            
                           },
                           error:function(){

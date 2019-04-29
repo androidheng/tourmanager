@@ -35,4 +35,6 @@ public interface TbStrategyMapper {
     int updateByPrimaryKey(TbStrategy record);
 
 	List<TbStrategy> findNoLoginAll();
+
+	List<TbStrategy> findBanner();
 }
