@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tourmanager.pojo.TbHotel;
+import com.tourmanager.pojo.TbStrategy;
 import com.tourmanager.service.HotelService;
+import com.tourmanager.service.StrategyService;
 
 import entity.PageResult;
 import entity.Result;
@@ -24,6 +26,8 @@ public class HotelController {
 
 	@Autowired
 	private HotelService hotelService;
+	@Autowired
+	private StrategyService strategyService;
 	
 	/**
 	 * 返回全部列表
@@ -53,6 +57,8 @@ public class HotelController {
 	 */
 	@RequestMapping("/addOrUpdate")
 	public Result addOrUpdate(@RequestBody TbHotel hotel){
+		TbStrategy tbStrategy = strategyService.findOne(hotel.getCid());
+		hotel.setCname(tbStrategy.getCity());
 		if(StringUtils.isEmpty(hotel.getId())) {
 			try {
 				hotelService.add(hotel);
