@@ -16,11 +16,9 @@
      <div class="layui-content" id="box" style="display:none">
          <form class="layui-form" action="" lay-filter="example">
            <div class="layui-form-item">
-              <label class="layui-form-label">城市类型</label>
+              <label class="layui-form-label">城市</label>
                 <div class="layui-input-block">
-                   <select id="cityid" name="cityid" lay-verify="required">
-                      
-                  </select>
+                   <select id="cityid" name="cityid" lay-verify="required"></select>
                </div>
            </div>
            <div class="layui-form-item">
@@ -43,11 +41,18 @@
              </div>
            
            
-            <div class="layui-form-item">
+           <!--  <div class="layui-form-item">
              <label class="layui-form-label">年龄范围</label>
                  <div class="layui-input-block">
                    <input type="number" style="display:inline-block;width:45%" name="startage" id="startage" required lay-verify="required" placeholder="请输最小年龄" autocomplete="off" class="layui-input">
                    <input type="number" style="display:inline-block;width:45%" name="endage" id="endage" required lay-verify="required" placeholder="请输最大年龄" autocomplete="off" class="layui-input">
+                 </div>
+           </div>-->
+            <div class="layui-form-item">
+             <label class="layui-form-label">经纬度</label>
+                 <div class="layui-input-block">
+                   <input type="text" style="display:inline-block;width:45%" name="lat" id="lat" required lay-verify="required" placeholder="请输经度" autocomplete="off" class="layui-input">
+                   <input type="text" style="display:inline-block;width:45%" name="lon" id="lon" required lay-verify="required" placeholder="请输纬度" autocomplete="off" class="layui-input">
                  </div>
            </div>
            
@@ -172,8 +177,8 @@
               data:JSON.stringify({"status":"1"}),
               success:function(res){//res为相应体,function为回调函数
              	  let options = "<option value=''></option>"
-                  res.data.forEach(item=>{
-                 	 options+="<option value='" + item.id + "'>" + item.title + "</option>";
+                  res.forEach(item=>{
+                 	 options+="<option value='" + item.id + "'>" + item.city + "</option>";
                   })
                  
                   $("#cityid").append(options)
@@ -222,7 +227,7 @@
     	              })
     	              //提交
                       form.on('submit(formDemo)', function(data){
-                    	  data.field.logo = rowData.logo||logo;
+                    	  data.field.logo = rowData?rowData.logo:logo;
                     	  
                     	  rowData&&(data.field.id=rowData.id)
                     	  delete data.field.file

@@ -52,6 +52,18 @@
                                  <em>景点信息</em>
                              </a>
                     </li>
+                    <li class="layui-nav-item">
+                            <a href="<%=basePath%>publish/hotelInfo.jsp">
+                                 <i class="layui-icon">&#xe612;</i>
+                                 <em>酒店信息</em>
+                             </a>
+                    </li>
+                    <li class="layui-nav-item">
+                            <a href="<%=basePath%>publish/foodInfo.jsp">
+                                 <i class="layui-icon">&#xe612;</i>
+                                 <em>美食信息</em>
+                             </a>
+                    </li>
                 </ul>
            </div>
         </div>
