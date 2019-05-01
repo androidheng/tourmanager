@@ -7,6 +7,7 @@
     <result column="content" property="content" jdbcType="VARCHAR" />
     <result column="cid" property="cid" jdbcType="INTEGER" />
     <result column="cname" property="cname" jdbcType="VARCHAR" />
+    <result column="logo" property="logo" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, title, content, cid, cname
+    id, title, content, cid, cname, logo
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tourmanager.pojo.TbHotelExample" >
     select
@@ -101,9 +102,9 @@
   </delete>
   <insert id="insert" parameterType="com.tourmanager.pojo.TbHotel" >
     insert into tb_hotel (id, title, content, 
-      cid, cname)
+      cid, cname, logo)
     values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
-      #{cid,jdbcType=INTEGER}, #{cname,jdbcType=VARCHAR})
+      #{cid,jdbcType=INTEGER}, #{cname,jdbcType=VARCHAR}, #{logo,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.tourmanager.pojo.TbHotel" >
     insert into tb_hotel
@@ -123,6 +124,9 @@
       <if test="cname != null" >
         cname,
       </if>
+      <if test="logo != null" >
+        logo,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -139,6 +143,9 @@
       </if>
       <if test="cname != null" >
         #{cname,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null" >
+        #{logo,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -166,6 +173,9 @@
       <if test="record.cname != null" >
         cname = #{record.cname,jdbcType=VARCHAR},
       </if>
+      <if test="record.logo != null" >
+        logo = #{record.logo,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -177,7 +187,8 @@
       title = #{record.title,jdbcType=VARCHAR},
       content = #{record.content,jdbcType=VARCHAR},
       cid = #{record.cid,jdbcType=INTEGER},
-      cname = #{record.cname,jdbcType=VARCHAR}
+      cname = #{record.cname,jdbcType=VARCHAR},
+      logo = #{record.logo,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -197,6 +208,9 @@
       <if test="cname != null" >
         cname = #{cname,jdbcType=VARCHAR},
       </if>
+      <if test="logo != null" >
+        logo = #{logo,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -205,7 +219,8 @@
     set title = #{title,jdbcType=VARCHAR},
       content = #{content,jdbcType=VARCHAR},
       cid = #{cid,jdbcType=INTEGER},
-      cname = #{cname,jdbcType=VARCHAR}
+      cname = #{cname,jdbcType=VARCHAR},
+      logo = #{logo,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

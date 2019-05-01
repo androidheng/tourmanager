@@ -51,15 +51,26 @@ public class HotelController {
 	 * @param hotel
 	 * @return
 	 */
-	@RequestMapping("/add")
-	public Result add(@RequestBody TbHotel hotel){
-		try {
-			hotelService.add(hotel);
-			return new Result(true, "增加成功");
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new Result(false, "增加失败");
+	@RequestMapping("/addOrUpdate")
+	public Result addOrUpdate(@RequestBody TbHotel hotel){
+		if(StringUtils.isEmpty(hotel.getId())) {
+			try {
+				hotelService.add(hotel);
+				return new Result(true, "增加成功");
+			} catch (Exception e) {
+				e.printStackTrace();
+				return new Result(false, "增加失败");
+			}
+		}else {
+			try {
+				hotelService.update(hotel);
+				return new Result(true, "修改成功");
+			} catch (Exception e) {
+				e.printStackTrace();
+				return new Result(false, "修改失败");
+			}
 		}
+		
 	}
 	
 	/**
@@ -97,9 +108,9 @@ public class HotelController {
 	 */
 	@ResponseBody
 	@RequestMapping("/delete")
-	public Result delete(Integer  id){
+	public Result delete(@RequestBody TbHotel hotel){
 		try {
-			hotelService.delete(id);
+			hotelService.delete(hotel.getId());
 			return new Result(true, "删除成功"); 
 		} catch (Exception e) {
 			e.printStackTrace();

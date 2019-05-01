@@ -11,6 +11,8 @@ public class TbHotel {
 
     private String cname;
 
+    private String logo;
+
     public Integer getId() {
         return id;
     }
@@ -49,5 +51,13 @@ public class TbHotel {
 
     public void setCname(String cname) {
         this.cname = cname == null ? null : cname.trim();
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo == null ? null : logo.trim();
     }
 }

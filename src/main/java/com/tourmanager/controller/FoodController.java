@@ -107,9 +107,9 @@ public class FoodController {
 	 */
 	@ResponseBody
 	@RequestMapping("/delete")
-	public Result delete(Integer  id){
+	public Result delete(@RequestBody TbFood food){
 		try {
-			foodService.delete(id);
+			foodService.delete(food.getId());
 			return new Result(true, "删除成功"); 
 		} catch (Exception e) {
 			e.printStackTrace();
