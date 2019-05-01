@@ -1,10 +1,12 @@
 package com.tourmanager.controller;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.tourmanager.pojo.TbDiary;
 import com.tourmanager.service.DiaryService;
 
@@ -15,7 +17,7 @@ import entity.Result;
  * @author Administrator
  *
  */
-@RestController
+@Controller
 @RequestMapping("/diary")
 public class DiaryController {
 
@@ -23,9 +25,26 @@ public class DiaryController {
 	private DiaryService diaryService;
 	
 	/**
+	 * 返回列表通过key
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/findByKeyAll")
+	public Result findByKeyAll(String key){	
+		List<TbDiary> list = diaryService.findByKeyAll(key);
+		return new Result(false, list);
+	}
+	@ResponseBody
+	@RequestMapping("/findNoLoginAll")
+	public Result findNoLoginAll(String key){	
+		List<TbDiary> list = diaryService.findNoLoginAll();
+		return new Result(false, list);
+	}
+	/**
 	 * 返回全部列表
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/findAll")
 	public List<TbDiary> findAll(){			
 		return diaryService.findAll();
@@ -46,6 +65,7 @@ public class DiaryController {
 	 * @param diary
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/add")
 	public Result add(@RequestBody TbDiary diary){
 		try {
@@ -63,6 +83,7 @@ public class DiaryController {
 	 * @param diary
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/update")
 	public Result update(@RequestBody TbDiary diary){
 		try {
@@ -89,6 +110,7 @@ public class DiaryController {
 	 * @param ids
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/delete")
 	public Result delete(Integer [] ids){
 		try {
@@ -107,9 +129,12 @@ public class DiaryController {
 	 * @param rows
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/search")
-	public PageResult search(@RequestBody TbDiary diary, int page, int rows  ){
-		return diaryService.findPage(diary, page, rows);		
+	public PageResult search(String key , int page, int limit  ){
+		TbDiary diary=new TbDiary();
+		diary.setTitle(key);
+		return diaryService.findPage(diary, page, limit);		
 	}
 	
 }

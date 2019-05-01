@@ -17,6 +17,8 @@ public interface TbDiaryMapper {
     int insertSelective(TbDiary record);
 
     List<TbDiary> selectByExample(TbDiaryExample example);
+    
+    List<TbDiary> findNoLoginAll();
 
     TbDiary selectByPrimaryKey(Integer id);
 

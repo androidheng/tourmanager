@@ -255,4 +255,7 @@
       clicks = #{clicks,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+    <select id="findNoLoginAll" resultMap="BaseResultMap">
+  	select  <include refid="Base_Column_List" /> from tb_diary order by  RAND() LIMIT 5
+  </select>
 </mapper>

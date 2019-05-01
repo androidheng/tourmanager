@@ -2,6 +2,8 @@ package com.tourmanager.service.impl;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.tourmanager.mapper.TbDiaryMapper;
@@ -87,11 +89,28 @@ public class DiaryServiceImpl implements DiaryService {
 		Criteria criteria = example.createCriteria();
 		
 		if(diary!=null){			
-				
+			if(!StringUtils.isEmpty(diary.getTitle())) {
+				criteria.andTitleLike("%"+diary.getTitle()+"%");
+			}
 		}
 		
 		Page<TbDiary> page= (Page<TbDiary>)diaryMapper.selectByExample(example);		
 		return new PageResult(0,"",page.getTotal(), page.getResult());
 	}
+
+		@Override
+		public List<TbDiary> findByKeyAll(String key) {
+			TbDiaryExample example=new TbDiaryExample();
+			Criteria criteria = example.createCriteria();
+			if(!StringUtils.isEmpty(key)){			
+				criteria.andCnameLike("%"+key+"%");	
+			}
+			return diaryMapper.selectByExample(example);
+		}
+
+		@Override
+		public List<TbDiary> findNoLoginAll() {
+			return diaryMapper.findNoLoginAll();
+		}
 	
 }

@@ -57,5 +57,10 @@ public interface DiaryService {
 	 * @return
 	 */
 	public PageResult findPage(TbDiary diary, int pageNum,int pageSize);
+
+
+	public List<TbDiary> findByKeyAll(String key);
+	
+	public List<TbDiary> findNoLoginAll();
 	
 }
