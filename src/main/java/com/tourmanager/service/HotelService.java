@@ -45,10 +45,10 @@ public interface HotelService {
 	
 	
 	/**
-	 * 批量删除
-	 * @param ids
+	 * 删除
+	 * @param id
 	 */
-	public void delete(Integer [] ids);
+	public void delete(Integer  id);
 
 	/**
 	 * 分页

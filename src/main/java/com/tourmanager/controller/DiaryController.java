@@ -49,6 +49,7 @@ public class DiaryController {
 	@RequestMapping("/add")
 	public Result add(@RequestBody TbDiary diary){
 		try {
+			diary.setClicks(0);
 			diaryService.add(diary);
 			return new Result(true, "增加成功");
 		} catch (Exception e) {

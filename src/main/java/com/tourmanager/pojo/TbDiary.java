@@ -15,6 +15,8 @@ public class TbDiary {
 
     private String cname;
 
+    private Integer clicks;
+
     public Integer getId() {
         return id;
     }
@@ -69,5 +71,13 @@ public class TbDiary {
 
     public void setCname(String cname) {
         this.cname = cname == null ? null : cname.trim();
+    }
+
+    public Integer getClicks() {
+        return clicks;
+    }
+
+    public void setClicks(Integer clicks) {
+        this.clicks = clicks;
     }
 }

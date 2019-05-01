@@ -1,7 +1,10 @@
 package com.tourmanager.service.impl;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.tourmanager.mapper.TbHotelMapper;
@@ -69,13 +72,11 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	/**
-	 * 批量删除
+	 * 删除
 	 */
 	@Override
-	public void delete(Integer[] ids) {
-		for(Integer id:ids){
-			hotelMapper.deleteByPrimaryKey(id);
-		}		
+	public void delete(Integer id) {
+		hotelMapper.deleteByPrimaryKey(id);
 	}
 	
 	
@@ -87,7 +88,9 @@ public class HotelServiceImpl implements HotelService {
 		Criteria criteria = example.createCriteria();
 		
 		if(hotel!=null){			
-				
+			if(!StringUtils.isEmpty(hotel.getTitle())) {
+				criteria.andTitleLike("%"+hotel.getTitle()+"%");
+			}	
 		}
 		
 		Page<TbHotel> page= (Page<TbHotel>)hotelMapper.selectByExample(example);		

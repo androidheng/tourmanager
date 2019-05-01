@@ -573,6 +573,66 @@ public class TbDiaryExample {
             addCriterion("cname not between", value1, value2, "cname");
             return (Criteria) this;
         }
+
+        public Criteria andClicksIsNull() {
+            addCriterion("clicks is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andClicksIsNotNull() {
+            addCriterion("clicks is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andClicksEqualTo(Integer value) {
+            addCriterion("clicks =", value, "clicks");
+            return (Criteria) this;
+        }
+
+        public Criteria andClicksNotEqualTo(Integer value) {
+            addCriterion("clicks <>", value, "clicks");
+            return (Criteria) this;
+        }
+
+        public Criteria andClicksGreaterThan(Integer value) {
+            addCriterion("clicks >", value, "clicks");
+            return (Criteria) this;
+        }
+
+        public Criteria andClicksGreaterThanOrEqualTo(Integer value) {
+            addCriterion("clicks >=", value, "clicks");
+            return (Criteria) this;
+        }
+
+        public Criteria andClicksLessThan(Integer value) {
+            addCriterion("clicks <", value, "clicks");
+            return (Criteria) this;
+        }
+
+        public Criteria andClicksLessThanOrEqualTo(Integer value) {
+            addCriterion("clicks <=", value, "clicks");
+            return (Criteria) this;
+        }
+
+        public Criteria andClicksIn(List<Integer> values) {
+            addCriterion("clicks in", values, "clicks");
+            return (Criteria) this;
+        }
+
+        public Criteria andClicksNotIn(List<Integer> values) {
+            addCriterion("clicks not in", values, "clicks");
+            return (Criteria) this;
+        }
+
+        public Criteria andClicksBetween(Integer value1, Integer value2) {
+            addCriterion("clicks between", value1, value2, "clicks");
+            return (Criteria) this;
+        }
+
+        public Criteria andClicksNotBetween(Integer value1, Integer value2) {
+            addCriterion("clicks not between", value1, value2, "clicks");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

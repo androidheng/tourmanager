@@ -1,10 +1,13 @@
 package com.tourmanager.controller;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.tourmanager.pojo.TbFood;
 import com.tourmanager.service.FoodService;
 
@@ -15,7 +18,7 @@ import entity.Result;
  * @author Administrator
  *
  */
-@RestController
+@Controller
 @RequestMapping("/food")
 public class FoodController {
 
@@ -26,6 +29,7 @@ public class FoodController {
 	 * 返回全部列表
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/findAll")
 	public List<TbFood> findAll(){			
 		return foodService.findAll();
@@ -46,15 +50,27 @@ public class FoodController {
 	 * @param food
 	 * @return
 	 */
-	@RequestMapping("/add")
-	public Result add(@RequestBody TbFood food){
-		try {
-			foodService.add(food);
-			return new Result(true, "增加成功");
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new Result(false, "增加失败");
+	@ResponseBody
+	@RequestMapping("/addOrUpdate")
+	public Result addOrUpdate(@RequestBody TbFood food){
+		if(StringUtils.isEmpty(food.getId())) {
+			try {
+				foodService.add(food);
+				return new Result(true, "增加成功");
+			} catch (Exception e) {
+				e.printStackTrace();
+				return new Result(false, "增加失败");
+			}
+		}else {
+			try {
+				foodService.update(food);
+				return new Result(true, "修改成功");
+			} catch (Exception e) {
+				e.printStackTrace();
+				return new Result(false, "修改失败");
+			}
 		}
+	
 	}
 	
 	/**
@@ -62,6 +78,7 @@ public class FoodController {
 	 * @param food
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/update")
 	public Result update(@RequestBody TbFood food){
 		try {
@@ -88,10 +105,11 @@ public class FoodController {
 	 * @param ids
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/delete")
-	public Result delete(Integer [] ids){
+	public Result delete(Integer  id){
 		try {
-			foodService.delete(ids);
+			foodService.delete(id);
 			return new Result(true, "删除成功"); 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -101,14 +119,19 @@ public class FoodController {
 	
 		/**
 	 * 查询+分页
-	 * @param brand
+	 * @param key
 	 * @param page
 	 * @param rows
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/search")
-	public PageResult search(@RequestBody TbFood food, int page, int rows  ){
-		return foodService.findPage(food, page, rows);		
+	public PageResult search(String key,  int page, int limit  ){
+		TbFood food=new TbFood();
+		if(!StringUtils.isEmpty(key)) {
+			food.setTitle(key);
+		}
+		return foodService.findPage(food, page, limit);		
 	}
 	
 }

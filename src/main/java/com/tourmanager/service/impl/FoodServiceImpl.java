@@ -2,6 +2,8 @@ package com.tourmanager.service.impl;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.tourmanager.mapper.TbFoodMapper;
@@ -72,10 +74,8 @@ public class FoodServiceImpl implements FoodService {
 	 * 批量删除
 	 */
 	@Override
-	public void delete(Integer[] ids) {
-		for(Integer id:ids){
-			foodMapper.deleteByPrimaryKey(id);
-		}		
+	public void delete(Integer id) {
+		foodMapper.deleteByPrimaryKey(id);
 	}
 	
 	
@@ -87,7 +87,9 @@ public class FoodServiceImpl implements FoodService {
 		Criteria criteria = example.createCriteria();
 		
 		if(food!=null){			
-				
+			if(!StringUtils.isEmpty(food.getTitle())) {
+				criteria.andTitleLike("%"+food.getTitle()+"%");
+			}	
 		}
 		
 		Page<TbFood> page= (Page<TbFood>)foodMapper.selectByExample(example);		

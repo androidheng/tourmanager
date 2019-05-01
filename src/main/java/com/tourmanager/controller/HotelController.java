@@ -1,10 +1,13 @@
 package com.tourmanager.controller;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.tourmanager.pojo.TbHotel;
 import com.tourmanager.service.HotelService;
 
@@ -15,7 +18,7 @@ import entity.Result;
  * @author Administrator
  *
  */
-@RestController
+@Controller
 @RequestMapping("/hotel")
 public class HotelController {
 
@@ -26,6 +29,7 @@ public class HotelController {
 	 * 返回全部列表
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/findAll")
 	public List<TbHotel> findAll(){			
 		return hotelService.findAll();
@@ -36,6 +40,7 @@ public class HotelController {
 	 * 返回全部列表
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/findPage")
 	public PageResult  findPage(int page,int rows){			
 		return hotelService.findPage(page, rows);
@@ -62,6 +67,7 @@ public class HotelController {
 	 * @param hotel
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/update")
 	public Result update(@RequestBody TbHotel hotel){
 		try {
@@ -78,6 +84,7 @@ public class HotelController {
 	 * @param id
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/findOne")
 	public TbHotel findOne(Integer id){
 		return hotelService.findOne(id);		
@@ -88,10 +95,11 @@ public class HotelController {
 	 * @param ids
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/delete")
-	public Result delete(Integer [] ids){
+	public Result delete(Integer  id){
 		try {
-			hotelService.delete(ids);
+			hotelService.delete(id);
 			return new Result(true, "删除成功"); 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -101,13 +109,18 @@ public class HotelController {
 	
 		/**
 	 * 查询+分页
-	 * @param brand
+	 * @param key
 	 * @param page
 	 * @param rows
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/search")
-	public PageResult search(@RequestBody TbHotel hotel, int page, int rows  ){
+	public PageResult search(String key, int page, int rows  ){
+		TbHotel hotel=new TbHotel();
+		if(!StringUtils.isEmpty(key)) {
+			hotel.setTitle(key);
+		}
 		return hotelService.findPage(hotel, page, rows);		
 	}
 	
