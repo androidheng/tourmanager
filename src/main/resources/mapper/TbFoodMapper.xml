@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.tourmanager.mapper.TbAttractionsMapper" >
-  <resultMap id="BaseResultMap" type="com.tourmanager.pojo.TbAttractions" >
+<mapper namespace="com.tourmanager.mapper.TbFoodMapper" >
+  <resultMap id="BaseResultMap" type="com.tourmanager.pojo.TbFood" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="cityid" property="cityid" jdbcType="INTEGER" />
     <result column="logo" property="logo" jdbcType="VARCHAR" />
-    <result column="describe" property="describe" jdbcType="VARCHAR" />
-    <result column="price" property="price" jdbcType="VARCHAR" />
-    <result column="attrname" property="attrname" jdbcType="VARCHAR" />
-    <result column="lat" property="lat" jdbcType="VARCHAR" />
-    <result column="lon" property="lon" jdbcType="VARCHAR" />
-    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="cid" property="cid" jdbcType="INTEGER" />
+    <result column="cname" property="cname" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -71,15 +68,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, cityid, logo, describe, price, attrname, lat, lon, status
+    id, logo, title, content, cid, cname
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tourmanager.pojo.TbAttractionsExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tourmanager.pojo.TbFoodExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from tb_attractions
+    from tb_food
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -90,123 +87,96 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from tb_attractions
+    from tb_food
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from tb_attractions
+    delete from tb_food
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.tourmanager.pojo.TbAttractionsExample" >
-    delete from tb_attractions
+  <delete id="deleteByExample" parameterType="com.tourmanager.pojo.TbFoodExample" >
+    delete from tb_food
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.tourmanager.pojo.TbAttractions" >
-    insert into tb_attractions (id, cityid, logo, 
-      describe, price, attrname, 
-      lat, lon, status)
-    values (#{id,jdbcType=INTEGER}, #{cityid,jdbcType=INTEGER}, #{logo,jdbcType=VARCHAR}, 
-      #{describe,jdbcType=VARCHAR}, #{price,jdbcType=VARCHAR}, #{attrname,jdbcType=VARCHAR}, 
-      #{lat,jdbcType=VARCHAR}, #{lon,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.tourmanager.pojo.TbFood" >
+    insert into tb_food (id, logo, title, 
+      content, cid, cname
+      )
+    values (#{id,jdbcType=INTEGER}, #{logo,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{cid,jdbcType=INTEGER}, #{cname,jdbcType=VARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.tourmanager.pojo.TbAttractions" >
-    insert into tb_attractions
+  <insert id="insertSelective" parameterType="com.tourmanager.pojo.TbFood" >
+    insert into tb_food
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
       </if>
-      <if test="cityid != null" >
-        cityid,
-      </if>
       <if test="logo != null" >
         logo,
       </if>
-      <if test="describe != null" >
-        describe,
+      <if test="title != null" >
+        title,
       </if>
-      <if test="price != null" >
-        price,
+      <if test="content != null" >
+        content,
       </if>
-      <if test="attrname != null" >
-        attrname,
+      <if test="cid != null" >
+        cid,
       </if>
-      <if test="lat != null" >
-        lat,
-      </if>
-      <if test="lon != null" >
-        lon,
-      </if>
-      <if test="status != null" >
-        status,
+      <if test="cname != null" >
+        cname,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="cityid != null" >
-        #{cityid,jdbcType=INTEGER},
-      </if>
       <if test="logo != null" >
         #{logo,jdbcType=VARCHAR},
       </if>
-      <if test="describe != null" >
-        #{describe,jdbcType=VARCHAR},
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
       </if>
-      <if test="price != null" >
-        #{price,jdbcType=VARCHAR},
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
       </if>
-      <if test="attrname != null" >
-        #{attrname,jdbcType=VARCHAR},
+      <if test="cid != null" >
+        #{cid,jdbcType=INTEGER},
       </if>
-      <if test="lat != null" >
-        #{lat,jdbcType=VARCHAR},
-      </if>
-      <if test="lon != null" >
-        #{lon,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
-        #{status,jdbcType=VARCHAR},
+      <if test="cname != null" >
+        #{cname,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.tourmanager.pojo.TbAttractionsExample" resultType="java.lang.Integer" >
-    select count(*) from tb_attractions
+  <select id="countByExample" parameterType="com.tourmanager.pojo.TbFoodExample" resultType="java.lang.Integer" >
+    select count(*) from tb_food
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update tb_attractions
+    update tb_food
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.cityid != null" >
-        cityid = #{record.cityid,jdbcType=INTEGER},
-      </if>
       <if test="record.logo != null" >
         logo = #{record.logo,jdbcType=VARCHAR},
       </if>
-      <if test="record.describe != null" >
-        describe = #{record.describe,jdbcType=VARCHAR},
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
       </if>
-      <if test="record.price != null" >
-        price = #{record.price,jdbcType=VARCHAR},
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=VARCHAR},
       </if>
-      <if test="record.attrname != null" >
-        attrname = #{record.attrname,jdbcType=VARCHAR},
+      <if test="record.cid != null" >
+        cid = #{record.cid,jdbcType=INTEGER},
       </if>
-      <if test="record.lat != null" >
-        lat = #{record.lat,jdbcType=VARCHAR},
-      </if>
-      <if test="record.lon != null" >
-        lon = #{record.lon,jdbcType=VARCHAR},
-      </if>
-      <if test="record.status != null" >
-        status = #{record.status,jdbcType=VARCHAR},
+      <if test="record.cname != null" >
+        cname = #{record.cname,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -214,60 +184,45 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update tb_attractions
+    update tb_food
     set id = #{record.id,jdbcType=INTEGER},
-      cityid = #{record.cityid,jdbcType=INTEGER},
       logo = #{record.logo,jdbcType=VARCHAR},
-      describe = #{record.describe,jdbcType=VARCHAR},
-      price = #{record.price,jdbcType=VARCHAR},
-      attrname = #{record.attrname,jdbcType=VARCHAR},
-      lat = #{record.lat,jdbcType=VARCHAR},
-      lon = #{record.lon,jdbcType=VARCHAR},
-      status = #{record.status,jdbcType=VARCHAR}
+      title = #{record.title,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=VARCHAR},
+      cid = #{record.cid,jdbcType=INTEGER},
+      cname = #{record.cname,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tourmanager.pojo.TbAttractions" >
-    update tb_attractions
+  <update id="updateByPrimaryKeySelective" parameterType="com.tourmanager.pojo.TbFood" >
+    update tb_food
     <set >
-      <if test="cityid != null" >
-        cityid = #{cityid,jdbcType=INTEGER},
-      </if>
       <if test="logo != null" >
         logo = #{logo,jdbcType=VARCHAR},
       </if>
-      <if test="describe != null" >
-        describe = #{describe,jdbcType=VARCHAR},
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
       </if>
-      <if test="price != null" >
-        price = #{price,jdbcType=VARCHAR},
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
       </if>
-      <if test="attrname != null" >
-        attrname = #{attrname,jdbcType=VARCHAR},
+      <if test="cid != null" >
+        cid = #{cid,jdbcType=INTEGER},
       </if>
-      <if test="lat != null" >
-        lat = #{lat,jdbcType=VARCHAR},
-      </if>
-      <if test="lon != null" >
-        lon = #{lon,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
-        status = #{status,jdbcType=VARCHAR},
+      <if test="cname != null" >
+        cname = #{cname,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tourmanager.pojo.TbAttractions" >
-    update tb_attractions
-    set cityid = #{cityid,jdbcType=INTEGER},
-      logo = #{logo,jdbcType=VARCHAR},
-      describe = #{describe,jdbcType=VARCHAR},
-      price = #{price,jdbcType=VARCHAR},
-      attrname = #{attrname,jdbcType=VARCHAR},
-      lat = #{lat,jdbcType=VARCHAR},
-      lon = #{lon,jdbcType=VARCHAR},
-      status = #{status,jdbcType=VARCHAR}
+  <update id="updateByPrimaryKey" parameterType="com.tourmanager.pojo.TbFood" >
+    update tb_food
+    set logo = #{logo,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      cid = #{cid,jdbcType=INTEGER},
+      cname = #{cname,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -13,6 +13,12 @@ public class TbAttractions {
 
     private String attrname;
 
+    private String lat;
+
+    private String lon;
+
+    private String status;
+
     public Integer getId() {
         return id;
     }
@@ -59,5 +65,29 @@ public class TbAttractions {
 
     public void setAttrname(String attrname) {
         this.attrname = attrname == null ? null : attrname.trim();
+    }
+
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat == null ? null : lat.trim();
+    }
+
+    public String getLon() {
+        return lon;
+    }
+
+    public void setLon(String lon) {
+        this.lon = lon == null ? null : lon.trim();
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status == null ? null : status.trim();
     }
 }
