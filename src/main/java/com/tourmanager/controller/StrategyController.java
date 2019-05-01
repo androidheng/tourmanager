@@ -60,8 +60,8 @@ public class StrategyController {
 	 */
 	@ResponseBody
 	@RequestMapping("/findAll")
-	public List<TbStrategy> findAll(@RequestBody TbStrategy strategy){			
-		return strategyService.findAll(strategy);
+	public Result findAll(@RequestBody TbStrategy strategy){			
+		return  new Result(true,strategyService.findAll(strategy));
 	}
 	
 	

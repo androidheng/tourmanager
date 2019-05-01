@@ -633,6 +633,76 @@ public class TbDiaryExample {
             addCriterion("clicks not between", value1, value2, "clicks");
             return (Criteria) this;
         }
+
+        public Criteria andCratetimeIsNull() {
+            addCriterion("cratetime is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCratetimeIsNotNull() {
+            addCriterion("cratetime is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCratetimeEqualTo(String value) {
+            addCriterion("cratetime =", value, "cratetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCratetimeNotEqualTo(String value) {
+            addCriterion("cratetime <>", value, "cratetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCratetimeGreaterThan(String value) {
+            addCriterion("cratetime >", value, "cratetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCratetimeGreaterThanOrEqualTo(String value) {
+            addCriterion("cratetime >=", value, "cratetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCratetimeLessThan(String value) {
+            addCriterion("cratetime <", value, "cratetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCratetimeLessThanOrEqualTo(String value) {
+            addCriterion("cratetime <=", value, "cratetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCratetimeLike(String value) {
+            addCriterion("cratetime like", value, "cratetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCratetimeNotLike(String value) {
+            addCriterion("cratetime not like", value, "cratetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCratetimeIn(List<String> values) {
+            addCriterion("cratetime in", values, "cratetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCratetimeNotIn(List<String> values) {
+            addCriterion("cratetime not in", values, "cratetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCratetimeBetween(String value1, String value2) {
+            addCriterion("cratetime between", value1, value2, "cratetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCratetimeNotBetween(String value1, String value2) {
+            addCriterion("cratetime not between", value1, value2, "cratetime");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

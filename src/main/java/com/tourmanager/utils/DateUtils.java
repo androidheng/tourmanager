@@ -15,4 +15,9 @@ public class DateUtils {
 		 String str = format.format(new Date()); 
 		 return str;
 	}
+	public static String getCurrentDay() {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd"); 
+		String str = format.format(new Date()); 
+		return str;
+	}
 }

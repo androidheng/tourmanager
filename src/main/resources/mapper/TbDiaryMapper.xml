@@ -10,6 +10,7 @@
     <result column="username" property="username" jdbcType="VARCHAR" />
     <result column="cname" property="cname" jdbcType="VARCHAR" />
     <result column="clicks" property="clicks" jdbcType="INTEGER" />
+    <result column="cratetime" property="cratetime" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -70,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, title, content, uid, logo, username, cname, clicks
+    id, title, content, uid, logo, username, cname, clicks, cratetime
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tourmanager.pojo.TbDiaryExample" >
     select
@@ -105,10 +106,12 @@
   <insert id="insert" parameterType="com.tourmanager.pojo.TbDiary" >
     insert into tb_diary (id, title, content, 
       uid, logo, username, 
-      cname, clicks)
+      cname, clicks, cratetime
+      )
     values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
       #{uid,jdbcType=INTEGER}, #{logo,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
-      #{cname,jdbcType=VARCHAR}, #{clicks,jdbcType=INTEGER})
+      #{cname,jdbcType=VARCHAR}, #{clicks,jdbcType=INTEGER}, #{cratetime,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.tourmanager.pojo.TbDiary" >
     insert into tb_diary
@@ -137,6 +140,9 @@
       <if test="clicks != null" >
         clicks,
       </if>
+      <if test="cratetime != null" >
+        cratetime,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -162,6 +168,9 @@
       </if>
       <if test="clicks != null" >
         #{clicks,jdbcType=INTEGER},
+      </if>
+      <if test="cratetime != null" >
+        #{cratetime,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -198,6 +207,9 @@
       <if test="record.clicks != null" >
         clicks = #{record.clicks,jdbcType=INTEGER},
       </if>
+      <if test="record.cratetime != null" >
+        cratetime = #{record.cratetime,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -212,7 +224,8 @@
       logo = #{record.logo,jdbcType=VARCHAR},
       username = #{record.username,jdbcType=VARCHAR},
       cname = #{record.cname,jdbcType=VARCHAR},
-      clicks = #{record.clicks,jdbcType=INTEGER}
+      clicks = #{record.clicks,jdbcType=INTEGER},
+      cratetime = #{record.cratetime,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -241,6 +254,9 @@
       <if test="clicks != null" >
         clicks = #{clicks,jdbcType=INTEGER},
       </if>
+      <if test="cratetime != null" >
+        cratetime = #{cratetime,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -252,10 +268,11 @@
       logo = #{logo,jdbcType=VARCHAR},
       username = #{username,jdbcType=VARCHAR},
       cname = #{cname,jdbcType=VARCHAR},
-      clicks = #{clicks,jdbcType=INTEGER}
+      clicks = #{clicks,jdbcType=INTEGER},
+      cratetime = #{cratetime,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-    <select id="findNoLoginAll" resultMap="BaseResultMap">
+      <select id="findNoLoginAll" resultMap="BaseResultMap">
   	select  <include refid="Base_Column_List" /> from tb_diary order by  RAND() LIMIT 5
   </select>
 </mapper>

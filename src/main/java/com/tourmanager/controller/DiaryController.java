@@ -32,13 +32,13 @@ public class DiaryController {
 	@RequestMapping("/findByKeyAll")
 	public Result findByKeyAll(String key){	
 		List<TbDiary> list = diaryService.findByKeyAll(key);
-		return new Result(false, list);
+		return new Result(true, list);
 	}
 	@ResponseBody
 	@RequestMapping("/findNoLoginAll")
 	public Result findNoLoginAll(String key){	
 		List<TbDiary> list = diaryService.findNoLoginAll();
-		return new Result(false, list);
+		return new Result(true, list);
 	}
 	/**
 	 * 返回全部列表

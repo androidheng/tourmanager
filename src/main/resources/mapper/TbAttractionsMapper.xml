@@ -71,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, cityid, logo, describe, price, attrname, lat, lon, status
+    id, cityid, logo, `describe`, price, attrname, lat, lon,`status` 
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tourmanager.pojo.TbAttractionsExample" >
     select
@@ -105,8 +105,8 @@
   </delete>
   <insert id="insert" parameterType="com.tourmanager.pojo.TbAttractions" >
     insert into tb_attractions (id, cityid, logo, 
-      describe, price, attrname, 
-      lat, lon, status)
+      `describe`, price, attrname, 
+      lat, lon, `status`)
     values (#{id,jdbcType=INTEGER}, #{cityid,jdbcType=INTEGER}, #{logo,jdbcType=VARCHAR}, 
       #{describe,jdbcType=VARCHAR}, #{price,jdbcType=VARCHAR}, #{attrname,jdbcType=VARCHAR}, 
       #{lat,jdbcType=VARCHAR}, #{lon,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR})
@@ -124,7 +124,7 @@
         logo,
       </if>
       <if test="describe != null" >
-        describe,
+        `describe`,
       </if>
       <if test="price != null" >
         price,
@@ -139,7 +139,7 @@
         lon,
       </if>
       <if test="status != null" >
-        status,
+        `status`,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -191,7 +191,7 @@
         logo = #{record.logo,jdbcType=VARCHAR},
       </if>
       <if test="record.describe != null" >
-        describe = #{record.describe,jdbcType=VARCHAR},
+        `describe` = #{record.describe,jdbcType=VARCHAR},
       </if>
       <if test="record.price != null" >
         price = #{record.price,jdbcType=VARCHAR},
@@ -206,7 +206,7 @@
         lon = #{record.lon,jdbcType=VARCHAR},
       </if>
       <if test="record.status != null" >
-        status = #{record.status,jdbcType=VARCHAR},
+        `status` = #{record.status,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -218,12 +218,12 @@
     set id = #{record.id,jdbcType=INTEGER},
       cityid = #{record.cityid,jdbcType=INTEGER},
       logo = #{record.logo,jdbcType=VARCHAR},
-      describe = #{record.describe,jdbcType=VARCHAR},
+      `describe` = #{record.describe,jdbcType=VARCHAR},
       price = #{record.price,jdbcType=VARCHAR},
       attrname = #{record.attrname,jdbcType=VARCHAR},
       lat = #{record.lat,jdbcType=VARCHAR},
       lon = #{record.lon,jdbcType=VARCHAR},
-      status = #{record.status,jdbcType=VARCHAR}
+      `status` = #{record.status,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -238,7 +238,7 @@
         logo = #{logo,jdbcType=VARCHAR},
       </if>
       <if test="describe != null" >
-        describe = #{describe,jdbcType=VARCHAR},
+        `describe` = #{describe,jdbcType=VARCHAR},
       </if>
       <if test="price != null" >
         price = #{price,jdbcType=VARCHAR},
@@ -253,7 +253,7 @@
         lon = #{lon,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
-        status = #{status,jdbcType=VARCHAR},
+        `status` = #{status,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -262,12 +262,12 @@
     update tb_attractions
     set cityid = #{cityid,jdbcType=INTEGER},
       logo = #{logo,jdbcType=VARCHAR},
-      describe = #{describe,jdbcType=VARCHAR},
+      `describe` = #{describe,jdbcType=VARCHAR},
       price = #{price,jdbcType=VARCHAR},
       attrname = #{attrname,jdbcType=VARCHAR},
       lat = #{lat,jdbcType=VARCHAR},
       lon = #{lon,jdbcType=VARCHAR},
-      status = #{status,jdbcType=VARCHAR}
+      `status` = #{status,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

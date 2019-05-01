@@ -133,12 +133,12 @@ public class HotelController {
 	 */
 	@ResponseBody
 	@RequestMapping("/search")
-	public PageResult search(String key, int page, int rows  ){
+	public PageResult search(String key, int page, int limit  ){
 		TbHotel hotel=new TbHotel();
 		if(!StringUtils.isEmpty(key)) {
 			hotel.setTitle(key);
 		}
-		return hotelService.findPage(hotel, page, rows);		
+		return hotelService.findPage(hotel, page, limit);		
 	}
 	
 }

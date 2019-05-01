@@ -17,6 +17,8 @@ public class TbDiary {
 
     private Integer clicks;
 
+    private String cratetime;
+
     public Integer getId() {
         return id;
     }
@@ -79,5 +81,13 @@ public class TbDiary {
 
     public void setClicks(Integer clicks) {
         this.clicks = clicks;
+    }
+
+    public String getCratetime() {
+        return cratetime;
+    }
+
+    public void setCratetime(String cratetime) {
+        this.cratetime = cratetime == null ? null : cratetime.trim();
     }
 }
