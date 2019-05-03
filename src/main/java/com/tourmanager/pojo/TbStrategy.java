@@ -21,6 +21,8 @@ public class TbStrategy {
 
     private Integer cid;
 
+    private String title;
+
     private String content;
 
     public Integer getId() {
@@ -101,6 +103,14 @@ public class TbStrategy {
 
     public void setCid(Integer cid) {
         this.cid = cid;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title == null ? null : title.trim();
     }
 
     public String getContent() {

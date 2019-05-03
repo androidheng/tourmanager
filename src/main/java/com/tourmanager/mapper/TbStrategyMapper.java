@@ -33,6 +33,7 @@ public interface TbStrategyMapper {
     int updateByPrimaryKeyWithBLOBs(TbStrategy record);
 
     int updateByPrimaryKey(TbStrategy record);
+    
 
 	List<TbStrategy> findNoLoginAll();
 
