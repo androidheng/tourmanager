@@ -67,5 +67,11 @@ public interface StrategyService {
 
 
 	public List<TbStrategy> findLoginAll(TbUser user);
+
+
+	public List<TbStrategy> findAllDis();
+
+
+	public List<TbStrategy> findAllDisWithLogo();
 	
 }

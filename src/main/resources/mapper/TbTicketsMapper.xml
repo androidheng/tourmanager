@@ -9,6 +9,8 @@
     <result column="createtime" property="createtime" jdbcType="VARCHAR" />
     <result column="aid" property="aid" jdbcType="INTEGER" />
     <result column="attrname" property="attrname" jdbcType="VARCHAR" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -69,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, price, quantity, sumprice, createtime, aid, attrname
+    id, price, quantity, sumprice, createtime, aid, attrname, uid, username
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tourmanager.pojo.TbTicketsExample" >
     select
@@ -104,10 +106,12 @@
   <insert id="insert" parameterType="com.tourmanager.pojo.TbTickets" >
     insert into tb_tickets (id, price, quantity, 
       sumprice, createtime, aid, 
-      attrname)
+      attrname, uid, username
+      )
     values (#{id,jdbcType=INTEGER}, #{price,jdbcType=VARCHAR}, #{quantity,jdbcType=INTEGER}, 
       #{sumprice,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{aid,jdbcType=INTEGER}, 
-      #{attrname,jdbcType=VARCHAR})
+      #{attrname,jdbcType=VARCHAR}, #{uid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.tourmanager.pojo.TbTickets" >
     insert into tb_tickets
@@ -133,6 +137,12 @@
       <if test="attrname != null" >
         attrname,
       </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -155,6 +165,12 @@
       </if>
       <if test="attrname != null" >
         #{attrname,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -188,6 +204,12 @@
       <if test="record.attrname != null" >
         attrname = #{record.attrname,jdbcType=VARCHAR},
       </if>
+      <if test="record.uid != null" >
+        uid = #{record.uid,jdbcType=INTEGER},
+      </if>
+      <if test="record.username != null" >
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -201,7 +223,9 @@
       sumprice = #{record.sumprice,jdbcType=VARCHAR},
       createtime = #{record.createtime,jdbcType=VARCHAR},
       aid = #{record.aid,jdbcType=INTEGER},
-      attrname = #{record.attrname,jdbcType=VARCHAR}
+      attrname = #{record.attrname,jdbcType=VARCHAR},
+      uid = #{record.uid,jdbcType=INTEGER},
+      username = #{record.username,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -227,6 +251,12 @@
       <if test="attrname != null" >
         attrname = #{attrname,jdbcType=VARCHAR},
       </if>
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -237,7 +267,9 @@
       sumprice = #{sumprice,jdbcType=VARCHAR},
       createtime = #{createtime,jdbcType=VARCHAR},
       aid = #{aid,jdbcType=INTEGER},
-      attrname = #{attrname,jdbcType=VARCHAR}
+      attrname = #{attrname,jdbcType=VARCHAR},
+      uid = #{uid,jdbcType=INTEGER},
+      username = #{username,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

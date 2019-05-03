@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tourmanager.pojo.TbFood;
+import com.tourmanager.pojo.TbHotel;
 import com.tourmanager.pojo.TbStrategy;
 import com.tourmanager.service.FoodService;
 import com.tourmanager.service.StrategyService;
@@ -33,13 +34,12 @@ public class FoodController {
 	 * 返回全部列表
 	 * @return
 	 */
+	
 	@ResponseBody
 	@RequestMapping("/findAll")
-	public List<TbFood> findAll(){			
-		return foodService.findAll();
+	public Result findAll(@RequestBody TbFood food){			
+		return new Result(true, foodService.findAll(food.getCname())) ;
 	}
-	
-	
 	/**
 	 * 返回全部列表
 	 * @return

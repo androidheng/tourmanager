@@ -95,5 +95,14 @@ public class AttractionsServiceImpl implements AttractionsService {
 		Page<TbAttractions> page= (Page<TbAttractions>)attractionsMapper.selectByExample(example);		
 		return new PageResult(0,"",page.getTotal(), page.getResult());
 	}
+
+		@Override
+		public List<TbAttractions> findAllApi(String cname) {
+			TbAttractionsExample example=new TbAttractionsExample();
+			Criteria criteria = example.createCriteria();
+			criteria.andStatusEqualTo("1");
+			criteria.andCnameEqualTo(cname);
+			return attractionsMapper.selectByExample(example);
+		}
 	
 }

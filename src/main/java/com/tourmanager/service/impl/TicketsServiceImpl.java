@@ -2,6 +2,8 @@ package com.tourmanager.service.impl;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.tourmanager.mapper.TbTicketsMapper;
@@ -87,7 +89,9 @@ public class TicketsServiceImpl implements TicketsService {
 		Criteria criteria = example.createCriteria();
 		
 		if(tickets!=null){			
-				
+			if(!StringUtils.isEmpty(tickets.getAttrname())) {
+				criteria.andAttrnameLike("%"+tickets.getAttrname()+"%");
+			}	
 		}
 		
 		Page<TbTickets> page= (Page<TbTickets>)ticketsMapper.selectByExample(example);		

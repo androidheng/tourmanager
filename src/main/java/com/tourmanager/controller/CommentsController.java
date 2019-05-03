@@ -1,14 +1,16 @@
 package com.tourmanager.controller;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tourmanager.pojo.TbComments;
 import com.tourmanager.service.CommentsService;
+import com.tourmanager.utils.DateUtils;
 
 import entity.PageResult;
 import entity.Result;
@@ -17,7 +19,7 @@ import entity.Result;
  * @author Administrator
  *
  */
-@RestController
+@Controller
 @RequestMapping("/comments")
 public class CommentsController {
 
@@ -28,9 +30,15 @@ public class CommentsController {
 	 * 返回全部列表
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/findAll")
-	public List<TbComments> findAll(){			
-		return commentsService.findAll();
+	public Result findAll(@RequestBody TbComments comments){			
+		return new Result(true,commentsService.findAll(comments.getAttrname())) ;
+	}
+	@ResponseBody
+	@RequestMapping("/findAllByUid")
+	public Result findAllByUid(@RequestBody TbComments comments){			
+		return new Result(true,commentsService.findAllByUid(comments.getUid())) ;
 	}
 	
 	
@@ -48,9 +56,11 @@ public class CommentsController {
 	 * @param comments
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/add")
 	public Result add(@RequestBody TbComments comments){
 		try {
+			comments.setCreatetime(DateUtils.getCurrentDay());
 			commentsService.add(comments);
 			return new Result(true, "增加成功");
 		} catch (Exception e) {
@@ -64,6 +74,7 @@ public class CommentsController {
 	 * @param comments
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/update")
 	public Result update(@RequestBody TbComments comments){
 		try {
@@ -80,6 +91,7 @@ public class CommentsController {
 	 * @param id
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/findOne")
 	public TbComments findOne(Integer id){
 		return commentsService.findOne(id);		
@@ -90,6 +102,7 @@ public class CommentsController {
 	 * @param ids
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/delete")
 	public Result delete(Integer [] ids){
 		try {
@@ -108,11 +121,12 @@ public class CommentsController {
 	 * @param rows
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/search")
 	public PageResult search(String key , int page, int limit  ){
 		TbComments comments=new TbComments();
 		if(!StringUtils.isEmpty(key)) {
-			comments.setAid(Integer.parseInt(key));
+			comments.setAttrname(key);
 		}
 		return commentsService.findPage(comments, page, limit);		
 	}

@@ -49,6 +49,12 @@
                     <li class="layui-nav-item">
                             <a href="<%=basePath%>publish/strategy.jsp">
                                  <i class="layui-icon">&#xe612;</i>
+                                 <em>攻略信息</em>
+                             </a>
+                    </li>
+                    <li class="layui-nav-item">
+                            <a href="<%=basePath%>publish/attractions.jsp">
+                                 <i class="layui-icon">&#xe612;</i>
                                  <em>景点信息</em>
                              </a>
                     </li>

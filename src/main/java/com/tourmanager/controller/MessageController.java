@@ -1,11 +1,10 @@
 package com.tourmanager.controller;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tourmanager.pojo.TbMessage;
 import com.tourmanager.service.MessageService;
@@ -18,7 +17,7 @@ import entity.Result;
  * @author Administrator
  *
  */
-@RestController
+@Controller
 @RequestMapping("/message")
 public class MessageController {
 
@@ -29,9 +28,10 @@ public class MessageController {
 	 * 返回全部列表
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/findAll")
-	public List<TbMessage> findAll(){			
-		return messageService.findAll();
+	public Result findAll(){			
+		return new Result(true, messageService.findAll());
 	}
 	
 	
@@ -39,6 +39,7 @@ public class MessageController {
 	 * 返回全部列表
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/findPage")
 	public PageResult  findPage(int page,int rows){			
 		return messageService.findPage(page, rows);
@@ -49,6 +50,7 @@ public class MessageController {
 	 * @param message
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/addOrUpdate")
 	public Result add(@RequestBody TbMessage message){
 		if(StringUtils.isEmpty(message.getId())) {
@@ -77,6 +79,7 @@ public class MessageController {
 	 * @param message
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/update")
 	public Result update(@RequestBody TbMessage message){
 		try {
@@ -93,6 +96,7 @@ public class MessageController {
 	 * @param id
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/findOne")
 	public TbMessage findOne(Integer id){
 		return messageService.findOne(id);		
@@ -103,6 +107,7 @@ public class MessageController {
 	 * @param ids
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/delete")
 	public Result delete(@RequestBody TbMessage message){
 		try {
@@ -121,6 +126,7 @@ public class MessageController {
 	 * @param rows
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/search")
 	public PageResult search(String key , int page, int limit  ){
 		TbMessage message=new TbMessage();

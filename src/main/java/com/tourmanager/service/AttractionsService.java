@@ -57,5 +57,8 @@ public interface AttractionsService {
 	 * @return
 	 */
 	public PageResult findPage(TbAttractions attractions, int pageNum,int pageSize);
+
+
+	public List<TbAttractions> findAllApi(String cname);
 	
 }

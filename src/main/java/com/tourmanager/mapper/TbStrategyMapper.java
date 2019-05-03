@@ -37,4 +37,8 @@ public interface TbStrategyMapper {
 	List<TbStrategy> findNoLoginAll();
 
 	List<TbStrategy> findBanner();
+
+	List<TbStrategy> findAllDis();
+	
+	List<TbStrategy> findAllDisWithLogo();
 }

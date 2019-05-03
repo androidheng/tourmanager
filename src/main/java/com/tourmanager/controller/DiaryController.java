@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tourmanager.pojo.TbDiary;
+import com.tourmanager.pojo.TbStrategy;
 import com.tourmanager.service.DiaryService;
 
 import entity.PageResult;
@@ -30,8 +31,9 @@ public class DiaryController {
 	 */
 	@ResponseBody
 	@RequestMapping("/findByKeyAll")
-	public Result findByKeyAll(String key){	
-		List<TbDiary> list = diaryService.findByKeyAll(key);
+	public Result findByKeyAll(@RequestBody TbDiary diary){	
+		System.out.println("城市:"+diary.getCname());
+		List<TbDiary> list = diaryService.findByKeyAll(diary.getCname());
 		return new Result(true, list);
 	}
 	@ResponseBody
@@ -77,7 +79,24 @@ public class DiaryController {
 			return new Result(false, "增加失败");
 		}
 	}
-	
+	/**
+	 * 游记被点击一次
+	 * @param strategy
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/clicks")
+	public Result clicks(@RequestBody TbDiary diary){
+		try {
+			TbDiary newDiary = diaryService.findOne(diary.getId());
+			newDiary.setClicks(newDiary.getClicks()+1);
+			diaryService.update(newDiary);
+			return new Result(true, "修改成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Result(false, "修改失败");
+		}
+	}
 	/**
 	 * 修改
 	 * @param diary

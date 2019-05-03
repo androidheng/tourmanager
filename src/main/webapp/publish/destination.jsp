@@ -153,7 +153,6 @@
             ,{field: 'startage', title: '最小年龄'}
             ,{field: 'endage', title: '最大年龄'}
             ,{field: 'introduction', title: '目的地描述'}
-            ,{field: 'status', title: '审核状态'}
             ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
          ]]
         ,id:'testReload'

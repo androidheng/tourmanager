@@ -97,5 +97,13 @@ public class FeedbackServiceImpl implements FeedbackService {
 		Page<TbFeedback> page= (Page<TbFeedback>)feedbackMapper.selectByExample(example);		
 		return new PageResult(0,"",page.getTotal(), page.getResult());
 	}
+
+		@Override
+		public List<TbFeedback> findAllByUId(Integer uid) {
+			TbFeedbackExample example=new TbFeedbackExample();
+			Criteria criteria = example.createCriteria();
+			criteria.andUidEqualTo(uid);
+			return feedbackMapper.selectByExample(example);
+		}
 	
 }

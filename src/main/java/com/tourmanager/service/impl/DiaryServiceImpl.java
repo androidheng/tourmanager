@@ -57,7 +57,7 @@ public class DiaryServiceImpl implements DiaryService {
 	 */
 	@Override
 	public void update(TbDiary diary){
-		diaryMapper.updateByPrimaryKey(diary);
+		diaryMapper.updateByPrimaryKeySelective(diary);
 	}	
 	
 	/**

@@ -162,7 +162,6 @@
             ,{field: 'startage', title: '最小年龄'}
             ,{field: 'endage', title: '最大年龄'}
             ,{field: 'introduction', title: '目的地描述'}
-            ,{field: 'status', title: '审核状态'}
             ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
          ]]
         ,id:'testReload'
@@ -295,7 +294,7 @@
   	        ,closeBtn: true
   	        ,area: ['600px','400px']
   	        ,shade: 0.8
-  	        ,btn:['审核通过','审核不通过']
+  	       // ,btn:['审核通过','审核不通过']
   	        ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
   	        ,btnAlign: 'c'
   	        ,moveType: 1 //拖拽模式，0或者1

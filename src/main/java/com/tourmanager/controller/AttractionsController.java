@@ -1,14 +1,17 @@
 package com.tourmanager.controller;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tourmanager.pojo.TbAttractions;
+import com.tourmanager.pojo.TbStrategy;
 import com.tourmanager.service.AttractionsService;
+import com.tourmanager.service.StrategyService;
 
 import entity.PageResult;
 import entity.Result;
@@ -17,20 +20,28 @@ import entity.Result;
  * @author Administrator
  *
  */
-@RestController
+@Controller
 @RequestMapping("/attractions")
 public class AttractionsController {
 
 	@Autowired
 	private AttractionsService attractionsService;
+	@Autowired
+	private StrategyService strategyService;
 	
 	/**
 	 * 返回全部列表
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/findAll")
 	public List<TbAttractions> findAll(){			
 		return attractionsService.findAll();
+	}
+	@ResponseBody
+	@RequestMapping("/findAllApi")
+	public Result findAllApi(@RequestBody TbAttractions attractions){			
+		return new Result(true,attractionsService.findAllApi(attractions.getCname()));
 	}
 	
 	
@@ -38,6 +49,7 @@ public class AttractionsController {
 	 * 返回全部列表
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/findPage")
 	public PageResult  findPage(int page,int rows){			
 		return attractionsService.findPage(page, rows);
@@ -48,10 +60,13 @@ public class AttractionsController {
 	 * @param attractions
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/addOrUpdate")
 	public Result add(@RequestBody TbAttractions attractions){
 		if(StringUtils.isEmpty(attractions.getId())) {
 			try {
+				TbStrategy tbStrategy = strategyService.findOne(attractions.getCityid());
+				attractions.setCname(tbStrategy.getCity());
 				attractionsService.add(attractions);
 				return new Result(true, "增加成功");
 			} catch (Exception e) {
@@ -75,6 +90,7 @@ public class AttractionsController {
 	 * @param attractions
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/update")
 	public Result update(@RequestBody TbAttractions attractions){
 		try {
@@ -101,6 +117,7 @@ public class AttractionsController {
 	 * @param ids
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/delete")
 	public Result delete(@RequestBody TbAttractions attractions){
 		try {
@@ -119,6 +136,7 @@ public class AttractionsController {
 	 * @param limit
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/search")
 	public PageResult search(String key , int page, int limit  ){
 		TbAttractions attractions=new TbAttractions();

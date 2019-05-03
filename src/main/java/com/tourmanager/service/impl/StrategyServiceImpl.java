@@ -132,11 +132,23 @@ public class StrategyServiceImpl implements StrategyService {
 		}
 		@Override
 		public List<TbStrategy> findLoginAll(TbUser user) {
+			System.out.println("登录以后查询");
 			TbStrategyExample example=new TbStrategyExample();
 			Criteria criteria = example.createCriteria();
-			criteria.andStartageGreaterThan(user.getAge());
-			criteria.andEndageLessThan(user.getAge());
-			return strategyMapper.findBanner();
+			criteria.andStartageLessThan(user.getAge());
+			criteria.andEndageGreaterThan(user.getAge());
+			return strategyMapper.selectByExample(example);
+		}
+
+		@Override
+		public List<TbStrategy> findAllDis() {
+			
+			return strategyMapper.findAllDis();
+		}
+
+		@Override
+		public List<TbStrategy> findAllDisWithLogo() {
+			return strategyMapper.findAllDisWithLogo();
 		}
 	
 }

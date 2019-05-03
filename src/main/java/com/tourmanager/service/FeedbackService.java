@@ -16,6 +16,8 @@ public interface FeedbackService {
 	 */
 	public List<TbFeedback> findAll();
 	
+	public List<TbFeedback> findAllByUId(Integer uid);
+	
 	
 	/**
 	 * 返回分页列表

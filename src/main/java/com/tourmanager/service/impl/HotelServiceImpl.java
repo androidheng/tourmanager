@@ -96,5 +96,13 @@ public class HotelServiceImpl implements HotelService {
 		Page<TbHotel> page= (Page<TbHotel>)hotelMapper.selectByExample(example);		
 		return new PageResult(0,"",page.getTotal(), page.getResult());
 	}
+
+		@Override
+		public List<TbHotel> findAll(String cname) {
+			TbHotelExample example=new TbHotelExample();
+			Criteria criteria = example.createCriteria();
+			criteria.andCnameEqualTo(cname);
+			return hotelMapper.selectByExample(example);		
+		}
 	
 }

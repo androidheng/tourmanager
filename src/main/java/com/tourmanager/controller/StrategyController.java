@@ -63,6 +63,16 @@ public class StrategyController {
 	public Result findAll(@RequestBody TbStrategy strategy){			
 		return  new Result(true,strategyService.findAll(strategy));
 	}
+	@ResponseBody
+	@RequestMapping("/findAllDis")
+	public Result findAllDis(){			
+		return  new Result(true,strategyService.findAllDis());
+	}
+	@ResponseBody
+	@RequestMapping("/findAllDisWithLogo")
+	public Result findAllDisWithLogo(){			
+		return  new Result(true,strategyService.findAllDisWithLogo());
+	}
 	
 	
 	/**
@@ -86,11 +96,7 @@ public class StrategyController {
 		if(loginAdmin!=null) {
 			if(StringUtils.isEmpty(strategy.getId())) {
 				try {
-					if(loginAdmin.getUsertype().equals("2")) {
-						strategy.setStatus("0");//发布信息者的需要审核
-					}else if(loginAdmin.getUsertype().equals("3")) {
-						strategy.setStatus("1");//审核信息者添加的可以直接发布
-					}
+					strategy.setStatus("1");
 					strategy.setClicks(0);
 					strategyService.add(strategy);
 					return new Result(true, "增加成功");

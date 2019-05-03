@@ -15,6 +15,10 @@ public class TbTickets {
 
     private String attrname;
 
+    private Integer uid;
+
+    private String username;
+
     public Integer getId() {
         return id;
     }
@@ -69,5 +73,21 @@ public class TbTickets {
 
     public void setAttrname(String attrname) {
         this.attrname = attrname == null ? null : attrname.trim();
+    }
+
+    public Integer getUid() {
+        return uid;
+    }
+
+    public void setUid(Integer uid) {
+        this.uid = uid;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username == null ? null : username.trim();
     }
 }

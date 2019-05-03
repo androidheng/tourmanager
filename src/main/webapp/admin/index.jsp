@@ -48,7 +48,7 @@
                             </a>
                         </li>
                     <li class="layui-nav-item">
-                            <a href="<%=basePath%>statistics.jsp">
+                            <a href="<%=basePath%>admin/statistics.jsp">
                                  <i class="layui-icon">&#xe612;</i>
                                  <em>统计信息</em>
                              </a>

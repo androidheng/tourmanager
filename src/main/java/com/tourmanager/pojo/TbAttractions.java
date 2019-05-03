@@ -19,6 +19,8 @@ public class TbAttractions {
 
     private String status;
 
+    private String cname;
+
     public Integer getId() {
         return id;
     }
@@ -89,5 +91,13 @@ public class TbAttractions {
 
     public void setStatus(String status) {
         this.status = status == null ? null : status.trim();
+    }
+
+    public String getCname() {
+        return cname;
+    }
+
+    public void setCname(String cname) {
+        this.cname = cname == null ? null : cname.trim();
     }
 }

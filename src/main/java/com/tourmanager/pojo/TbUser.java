@@ -11,6 +11,8 @@ public class TbUser {
 
     private String regisgertime;
 
+    private String avatar;
+
     public Integer getId() {
         return id;
     }
@@ -49,5 +51,13 @@ public class TbUser {
 
     public void setRegisgertime(String regisgertime) {
         this.regisgertime = regisgertime == null ? null : regisgertime.trim();
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar == null ? null : avatar.trim();
     }
 }

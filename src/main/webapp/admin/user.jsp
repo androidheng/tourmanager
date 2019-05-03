@@ -101,9 +101,10 @@
 
           ,url:'<%=basePath%>admin/search'
           ,cols: [[ //标题栏
-             {field: 'username', title: '用户名', }
+             {field: 'username', title: '用户名' }
             ,{field: 'password', title: '密码'}
-            ,{field: 'usertype', title: '角色类型'}
+            ,{field: 'showstatus', title: '角色类型'}
+            ,{field: 'usertype', title: '角色类型', hide: true}
             ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
          ]]
         ,id:'testReload'

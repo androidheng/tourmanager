@@ -1,12 +1,16 @@
 package com.tourmanager.controller;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.tourmanager.pojo.TbTickets;
 import com.tourmanager.service.TicketsService;
+import com.tourmanager.utils.DateUtils;
 
 import entity.PageResult;
 import entity.Result;
@@ -15,7 +19,7 @@ import entity.Result;
  * @author Administrator
  *
  */
-@RestController
+@Controller
 @RequestMapping("/tickets")
 public class TicketsController {
 
@@ -26,6 +30,7 @@ public class TicketsController {
 	 * 返回全部列表
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/findAll")
 	public List<TbTickets> findAll(){			
 		return ticketsService.findAll();
@@ -36,6 +41,7 @@ public class TicketsController {
 	 * 返回全部列表
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/findPage")
 	public PageResult  findPage(int page,int rows){			
 		return ticketsService.findPage(page, rows);
@@ -46,9 +52,11 @@ public class TicketsController {
 	 * @param tickets
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/add")
 	public Result add(@RequestBody TbTickets tickets){
 		try {
+			tickets.setCreatetime(DateUtils.getCurrentDay());
 			ticketsService.add(tickets);
 			return new Result(true, "增加成功");
 		} catch (Exception e) {
@@ -62,6 +70,7 @@ public class TicketsController {
 	 * @param tickets
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/update")
 	public Result update(@RequestBody TbTickets tickets){
 		try {
@@ -78,6 +87,7 @@ public class TicketsController {
 	 * @param id
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/findOne")
 	public TbTickets findOne(Integer id){
 		return ticketsService.findOne(id);		
@@ -88,6 +98,7 @@ public class TicketsController {
 	 * @param ids
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/delete")
 	public Result delete(Integer [] ids){
 		try {
@@ -106,9 +117,14 @@ public class TicketsController {
 	 * @param rows
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/search")
-	public PageResult search(@RequestBody TbTickets tickets, int page, int rows  ){
-		return ticketsService.findPage(tickets, page, rows);		
+	public PageResult search(String key, int page, int limit  ){
+		TbTickets tickets=new TbTickets();
+		if(!StringUtils.isEmpty(key)) {
+			tickets.setAttrname(key);
+		}
+		return ticketsService.findPage(tickets, page, limit);		
 	}
 	
 }

@@ -95,5 +95,14 @@ public class FoodServiceImpl implements FoodService {
 		Page<TbFood> page= (Page<TbFood>)foodMapper.selectByExample(example);		
 		return new PageResult(0,"",page.getTotal(), page.getResult());
 	}
+
+		@Override
+		public List<TbFood> findAll(String cname) {
+			TbFoodExample example=new TbFoodExample();
+			Criteria criteria = example.createCriteria();
+			
+			criteria.andCnameEqualTo(cname);
+			return foodMapper.selectByExample(example);
+		}
 	
 }

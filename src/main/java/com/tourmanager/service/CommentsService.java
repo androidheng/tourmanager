@@ -57,5 +57,11 @@ public interface CommentsService {
 	 * @return
 	 */
 	public PageResult findPage(TbComments comments, int pageNum,int pageSize);
+
+
+	public List<TbComments> findAll(String attrname);
+
+
+	public List<TbComments> findAllByUid(Integer uid);
 	
 }

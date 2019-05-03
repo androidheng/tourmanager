@@ -78,7 +78,7 @@
             <div class="pagewrap">
                 <span class="layui-breadcrumb">
                   <a>首页</a>
-                  <a>景区信息</a>
+                  <a>攻略信息</a>
                 </span>
                 
             </div>
@@ -122,9 +122,9 @@
 
           ,url:'<%=basePath%>attractions/search'
           ,cols: [[ //标题栏
-             {field: 'username', title: '用户名', }
-            ,{field: 'password', title: '密码'}
-            ,{field: 'usertype', title: '角色类型'}
+             {field: 'attrname', title: '景点名称', }
+            ,{field: 'price', title: '票价'}
+            ,{field: 'cname', title: '所在城市'}
             ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
          ]]
         ,id:'testReload'

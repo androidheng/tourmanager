@@ -11,6 +11,7 @@
     <result column="lat" property="lat" jdbcType="VARCHAR" />
     <result column="lon" property="lon" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="cname" property="cname" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -71,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, cityid, logo, `describe`, price, attrname, lat, lon,`status` 
+    id, cityid, logo,`describe` , price, attrname, lat, lon,`status` , cname
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tourmanager.pojo.TbAttractionsExample" >
     select
@@ -105,11 +106,13 @@
   </delete>
   <insert id="insert" parameterType="com.tourmanager.pojo.TbAttractions" >
     insert into tb_attractions (id, cityid, logo, 
-      `describe`, price, attrname, 
-      lat, lon, `status`)
+     `describe` , price, attrname, 
+      lat, lon,`status` , cname
+      )
     values (#{id,jdbcType=INTEGER}, #{cityid,jdbcType=INTEGER}, #{logo,jdbcType=VARCHAR}, 
       #{describe,jdbcType=VARCHAR}, #{price,jdbcType=VARCHAR}, #{attrname,jdbcType=VARCHAR}, 
-      #{lat,jdbcType=VARCHAR}, #{lon,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR})
+      #{lat,jdbcType=VARCHAR}, #{lon,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{cname,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.tourmanager.pojo.TbAttractions" >
     insert into tb_attractions
@@ -139,7 +142,10 @@
         lon,
       </if>
       <if test="status != null" >
-        `status`,
+       `status` ,
+      </if>
+      <if test="cname != null" >
+        cname,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -170,6 +176,9 @@
       <if test="status != null" >
         #{status,jdbcType=VARCHAR},
       </if>
+      <if test="cname != null" >
+        #{cname,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.tourmanager.pojo.TbAttractionsExample" resultType="java.lang.Integer" >
@@ -191,7 +200,7 @@
         logo = #{record.logo,jdbcType=VARCHAR},
       </if>
       <if test="record.describe != null" >
-        `describe` = #{record.describe,jdbcType=VARCHAR},
+        describe = #{record.describe,jdbcType=VARCHAR},
       </if>
       <if test="record.price != null" >
         price = #{record.price,jdbcType=VARCHAR},
@@ -206,7 +215,10 @@
         lon = #{record.lon,jdbcType=VARCHAR},
       </if>
       <if test="record.status != null" >
-        `status` = #{record.status,jdbcType=VARCHAR},
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cname != null" >
+        cname = #{record.cname,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -223,7 +235,8 @@
       attrname = #{record.attrname,jdbcType=VARCHAR},
       lat = #{record.lat,jdbcType=VARCHAR},
       lon = #{record.lon,jdbcType=VARCHAR},
-      `status` = #{record.status,jdbcType=VARCHAR}
+      `status` = #{record.status,jdbcType=VARCHAR},
+      cname = #{record.cname,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -255,6 +268,9 @@
       <if test="status != null" >
         `status` = #{status,jdbcType=VARCHAR},
       </if>
+      <if test="cname != null" >
+        cname = #{cname,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -267,7 +283,8 @@
       attrname = #{attrname,jdbcType=VARCHAR},
       lat = #{lat,jdbcType=VARCHAR},
       lon = #{lon,jdbcType=VARCHAR},
-      `status` = #{status,jdbcType=VARCHAR}
+      `status` = #{status,jdbcType=VARCHAR},
+      cname = #{cname,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

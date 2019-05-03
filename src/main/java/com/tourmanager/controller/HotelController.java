@@ -1,6 +1,4 @@
 package com.tourmanager.controller;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -35,8 +33,8 @@ public class HotelController {
 	 */
 	@ResponseBody
 	@RequestMapping("/findAll")
-	public List<TbHotel> findAll(){			
-		return hotelService.findAll();
+	public Result findAll(@RequestBody TbHotel hotel){			
+		return new Result(true, hotelService.findAll(hotel.getCname())) ;
 	}
 	
 	

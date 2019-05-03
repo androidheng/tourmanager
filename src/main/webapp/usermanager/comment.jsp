@@ -30,9 +30,9 @@
             <div class="layui-card">
                 <div class="layui-card-body">
                      <div class="demoTable">
-                                                                        用户名：
+                                                                        景点名：
                       <div class="layui-inline">
-                         <input type="text" id="demoReload"  lay-verify="required" autocomplete="off" placeholder="请输入用户名" class="layui-input">  
+                         <input type="text" id="demoReload"  lay-verify="required" autocomplete="off" placeholder="请输入景点名" class="layui-input">  
                       </div>
                       <button class="layui-btn" data-type="reload">查询</button>
                     </div>
@@ -49,11 +49,12 @@
     	//展示已知数据
         table.render({
            elem: '#demo'
-          ,url:'<%=basePath%>user/search'
+          ,url:'<%=basePath%>comments/search'
           ,cols: [[ //标题栏
-             {field: 'username', title: '用户名', }
-            ,{field: 'password', title: '密码'}
-            ,{field: 'usertype', title: '角色类型'}
+             {field: 'attrname', title: '景点', }
+            ,{field: 'username', title: '用户名'}
+            ,{field: 'content', title: '评论内容'}
+            ,{field: 'createtime', title: '评论时间'}
            
          ]]
         ,id:'testReload'

@@ -1,14 +1,16 @@
 package com.tourmanager.controller;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tourmanager.pojo.TbFeedback;
 import com.tourmanager.service.FeedbackService;
+import com.tourmanager.utils.DateUtils;
 
 import entity.PageResult;
 import entity.Result;
@@ -17,7 +19,7 @@ import entity.Result;
  * @author Administrator
  *
  */
-@RestController
+@Controller
 @RequestMapping("/feedback")
 public class FeedbackController {
 
@@ -29,10 +31,19 @@ public class FeedbackController {
 	 * @return
 	 */
 	@RequestMapping("/findAll")
+	@ResponseBody
 	public List<TbFeedback> findAll(){			
 		return feedbackService.findAll();
 	}
-	
+	/**
+	 * 返回全部列表 根据用户id
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/findAllByUId")
+	public Result findAllByUId(@RequestBody TbFeedback feedback){			
+		return new Result(true, feedbackService.findAllByUId(feedback.getUid()));
+	}
 	
 	/**
 	 * 返回全部列表
@@ -48,9 +59,11 @@ public class FeedbackController {
 	 * @param feedback
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/add")
 	public Result add(@RequestBody TbFeedback feedback){
 		try {
+			feedback.setCreatetime(DateUtils.getCurrent());
 			feedbackService.add(feedback);
 			return new Result(true, "增加成功");
 		} catch (Exception e) {
@@ -80,6 +93,7 @@ public class FeedbackController {
 	 * @param id
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/findOne")
 	public TbFeedback findOne(Integer id){
 		return feedbackService.findOne(id);		
@@ -108,6 +122,7 @@ public class FeedbackController {
 	 * @param rows
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/search")
 	public PageResult search(String key , int page, int limit  ){
 		TbFeedback feedback=new TbFeedback();

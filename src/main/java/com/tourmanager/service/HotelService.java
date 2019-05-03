@@ -57,5 +57,8 @@ public interface HotelService {
 	 * @return
 	 */
 	public PageResult findPage(TbHotel hotel, int pageNum,int pageSize);
+
+
+	public List<TbHotel> findAll(String cname);
 	
 }

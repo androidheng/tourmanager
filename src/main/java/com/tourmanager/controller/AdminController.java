@@ -1,8 +1,10 @@
 package com.tourmanager.controller;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.tourmanager.pojo.TbAdmin;
 import com.tourmanager.service.AdminService;
 import com.tourmanager.utils.DateUtils;
+import com.tourmanager.vo.AdminVo;
 
 import entity.PageResult;
 import entity.Result;
@@ -146,7 +149,7 @@ public class AdminController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping("/search")
+	@RequestMapping(value="/search",produces = "application/json;charset=UTF-8")
 	public PageResult search(String usertype,String key , int page, int limit  ){
 		TbAdmin admin=new TbAdmin();
 		if(!StringUtils.isEmpty(usertype)) {
@@ -155,7 +158,23 @@ public class AdminController {
 		if(!StringUtils.isEmpty(key)) {
 			admin.setUsername(key);
 		}
-		return adminService.findPage(admin, page, limit);		
+		PageResult result = adminService.findPage(admin, page, limit);
+		List<TbAdmin> data = result.getData();
+		List<AdminVo> list=new ArrayList<>();
+		for (TbAdmin ad : data) {
+			AdminVo vo=new AdminVo();
+			BeanUtils.copyProperties(ad, vo);
+			if(ad.getUsertype().equals("1")) {
+				vo.setShowstatus("用户管理者");
+			}else if(ad.getUsertype().equals("2")) {
+				vo.setShowstatus("发布信息者");
+			}else if(ad.getUsertype().equals("3")) {
+				vo.setShowstatus("审核信息者");
+			}
+			list.add(vo);
+		}
+		result.setData(list);
+		return result;		
 	}
 	
 }

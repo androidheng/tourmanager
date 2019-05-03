@@ -101,5 +101,21 @@ public class CommentsServiceImpl implements CommentsService {
 		Page<TbComments> page= (Page<TbComments>)commentsMapper.selectByExample(example);		
 		return new PageResult(0,"",page.getTotal(), page.getResult());
 	}
+
+		@Override
+		public List<TbComments> findAll(String attrname) {
+			TbCommentsExample example=new TbCommentsExample();
+			Criteria criteria = example.createCriteria();
+			criteria.andAttrnameEqualTo(attrname);
+			return commentsMapper.selectByExample(example);	
+		}
+
+		@Override
+		public List<TbComments> findAllByUid(Integer uid) {
+			TbCommentsExample example=new TbCommentsExample();
+			Criteria criteria = example.createCriteria();
+			criteria.andUidEqualTo(uid);
+			return commentsMapper.selectByExample(example);	
+		}
 	
 }

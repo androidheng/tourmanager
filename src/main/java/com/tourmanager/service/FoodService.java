@@ -57,5 +57,8 @@ public interface FoodService {
 	 * @return
 	 */
 	public PageResult findPage(TbFood food, int pageNum,int pageSize);
+
+
+	public List<TbFood> findAll(String cname);
 	
 }
