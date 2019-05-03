@@ -30,8 +30,8 @@ public class CityController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="/findAll",produces = "application/json;charset=UTF-8")
-	public List<TbCity> findAll(){			
-		return cityService.findAll();
+	public Result findAll(){			
+		return new Result(true,cityService.findAll()) ;
 	}
 	
 	
