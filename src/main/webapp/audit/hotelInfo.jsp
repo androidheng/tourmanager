@@ -24,7 +24,7 @@
            <div class="layui-form-item">
                <label class="layui-form-label">标题</label>
                <div class="layui-input-block">
-                 <input type="text" name="title" id="title" required  lay-verify="required" placeholder="请输入景点名称" autocomplete="off" class="layui-input">
+                 <input type="text" name="title" id="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
                </div>
            </div>
          
@@ -155,15 +155,15 @@
      //获取下拉列表数据
        function getCity(){
           $.ajax({
-              url:"<%=basePath%>strategy/findAll",
+              url:"<%=basePath%>city/findAll",
               type:'post',//method请求方式，get或者post
               dataType:'json',//预期服务器返回的数据类型
               contentType: "application/json; charset=utf-8",
               data:JSON.stringify({"status":"1"}),
               success:function(res){//res为相应体,function为回调函数
              	  let options = "<option value=''></option>"
-                  res.forEach(item=>{
-                 	 options+="<option value='" + item.id + "'>" + item.city + "</option>";
+                  res.data.forEach(item=>{
+                 	 options+="<option value='" + item.id + "'>" + item.cname + "</option>";
                   })
                   console.log(options)
                   $("#cityid").html(options)
@@ -182,8 +182,8 @@
     		   //$('#logoPre').html('<img src="'+ rowData.logo +'"  class="layui-upload-img">');
     		   form.val('example', rowData)  
     	   }else{
-    		     //　$('#myform')[0].reset();
-    		　　// form.render();
+    		     　$('#myform')[0].reset();
+    		　　 form.render();
     		  
     	   }
     	  

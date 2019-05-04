@@ -89,8 +89,11 @@ public class CityServiceImpl implements CityService {
 		
 		if(city!=null){			
 				
-			if(!StringUtils.isEmpty("")) {
-				
+			if(!StringUtils.isEmpty(city.getCname())) {
+				criteria.andCnameLike("%"+city.getCname()+"%");
+			}
+			if(!StringUtils.isEmpty(city.getCtype())) {
+				criteria.andCtypeEqualTo(city.getCtype());
 			}
 		}
 		

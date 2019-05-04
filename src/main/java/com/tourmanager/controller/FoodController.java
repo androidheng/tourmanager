@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.tourmanager.pojo.TbCity;
 import com.tourmanager.pojo.TbFood;
 import com.tourmanager.pojo.TbHotel;
 import com.tourmanager.pojo.TbStrategy;
+import com.tourmanager.service.CityService;
 import com.tourmanager.service.FoodService;
 import com.tourmanager.service.StrategyService;
 
@@ -29,6 +31,8 @@ public class FoodController {
 	private FoodService foodService;
 	@Autowired
 	private StrategyService strategyService;
+	@Autowired
+	private CityService cityService;
 	
 	/**
 	 * 返回全部列表
@@ -57,8 +61,8 @@ public class FoodController {
 	@ResponseBody
 	@RequestMapping("/addOrUpdate")
 	public Result addOrUpdate(@RequestBody TbFood food){
-		TbStrategy tbStrategy = strategyService.findOne(food.getCid());
-		food.setCname(tbStrategy.getCity());
+		TbCity city = cityService.findOne(food.getCid());
+		food.setCname(city.getCname());
 		if(StringUtils.isEmpty(food.getId())) {
 			try {
 				

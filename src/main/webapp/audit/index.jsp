@@ -49,17 +49,23 @@
                     <li class="layui-nav-item">
                             <a href="<%=basePath%>audit/strategy.jsp">
                                  <i class="layui-icon">&#xe612;</i>
-                                 <em>景点信息</em>
+                                 <em>攻略信息</em>
                              </a>
                     </li>
                     <li class="layui-nav-item">
-                            <a href="<%=basePath%>publish/hotelInfo.jsp">
+                            <a href="<%=basePath%>audit/attractions.jsp">
+                                 <i class="layui-icon">&#xe612;</i>
+                                 <em>景点信息</em>
+                             </a>
+                    </li>
+                     <li class="layui-nav-item">
+                            <a href="<%=basePath%>audit/hotelInfo.jsp">
                                  <i class="layui-icon">&#xe612;</i>
                                  <em>酒店信息</em>
                              </a>
                     </li>
                     <li class="layui-nav-item">
-                            <a href="<%=basePath%>publish/foodInfo.jsp">
+                            <a href="<%=basePath%>audit/foodInfo.jsp">
                                  <i class="layui-icon">&#xe612;</i>
                                  <em>美食信息</em>
                              </a>
@@ -81,7 +87,7 @@
 
         <div class="mobile-mask"></div>
     </div>
-    <script src="<%=basePath%>assets/layui.js"></script>
+    <script src="<%=basePath%>assets/layui.all.js"></script>
     <script src="<%=basePath%>js/index.js" data-main="home"></script>
 </body>
 </html>

@@ -18,7 +18,7 @@
            <div class="layui-form-item">
                <label class="layui-form-label">城市</label>
                <div class="layui-input-block">
-                 <input type="text" name="city" id="city" required  lay-verify="required" placeholder="请输入城市" autocomplete="off" class="layui-input">
+                 <input type="text" name="cname" id="city" required  lay-verify="required" placeholder="请输入城市" autocomplete="off" class="layui-input">
                </div>
            </div>
          
@@ -37,20 +37,14 @@
            <div class="layui-form-item">
               <label class="layui-form-label">城市类型</label>
                 <div class="layui-input-block">
-                   <select id="citytypes" name="citytype" lay-verify="required">
+                   <select id="citytypes" name="ctype" lay-verify="required">
                        <option value=""></option>
                        <option value="0">国内</option>
                        <option value="1"> 国外</option>
                   </select>
                </div>
            </div>
-            <div class="layui-form-item">
-             <label class="layui-form-label">年龄范围</label>
-                 <div class="layui-input-block">
-                   <input type="number" style="display:inline-block;width:45%" name="startage" id="startage" required lay-verify="required" placeholder="请输最小年龄" autocomplete="off" class="layui-input">
-                   <input type="number" style="display:inline-block;width:45%" name="endage" id="endage" required lay-verify="required" placeholder="请输最大年龄" autocomplete="off" class="layui-input">
-                 </div>
-           </div>
+          
            
            <div class="layui-form-item layui-form-text">
                 <label class="layui-form-label">城市简介</label>
@@ -58,12 +52,7 @@
                    <textarea name="introduction" id="introduction" placeholder="请输入城市简介" class="layui-textarea"></textarea>
                 </div>
            </div>
-           <div class="layui-form-item">
-             <label class="layui-form-label">攻略</label>
-                 <div class="layui-input-block">
-                   <textarea id="edit" name="content" style="display: none;" placeholder="请输入攻略"></textarea>
-                 </div>
-           </div>
+          
            <div class="layui-form-item">
                <div class="layui-input-block">
                  <button class="layui-btn layui-btn-blue" lay-submit lay-filter="formDemo">立即提交</button>
@@ -104,18 +93,6 @@
                         </div>
                         </form>
                       </div>
-                      <div class="layui-inline">
-                        <form class="layui-form" >
-                                                                              状态
-                         <div class="layui-inline">
-                           <select  id="status" lay-verify="required">
-                             <option value=""></option>
-                             <option value="0">未审核</option>
-                             <option value="1">已审核</option>
-                           </select>
-                        </div>
-                        </form>
-                      </div>
                       <button class="layui-btn" data-type="reload">查询</button>
                     </div>
                     <table id="demo" lay-filter="demo" ></table>
@@ -132,7 +109,14 @@
         <button class="layui-btn layui-btn-sm" lay-event="add">添加目的地</button>
      </div>
     </script>
-    
+     <script type="text/html" id="titleTpl">
+ 
+  {{#  if(d.ctype == 0){ }}
+     国内
+  {{#  } else { }}
+     国外
+  {{#  } }}
+</script>
     <script type="text/html" id="barDemo">
       <a class="layui-btn layui-btn-success layui-btn-xs" lay-event="edit">编辑</a>
       <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
@@ -146,12 +130,10 @@
         table.render({
            elem: '#demo'
           ,toolbar: '#toolbarDemo'
-          ,url:'<%=basePath%>strategy/search'
+          ,url:'<%=basePath%>city/search'
           ,cols: [[ //标题栏
-             {field: 'city', title: '城市', }
-            ,{field: 'citytype', title: '城市类型'}
-            ,{field: 'startage', title: '最小年龄'}
-            ,{field: 'endage', title: '最大年龄'}
+             {field: 'cname', title: '城市'}
+            ,{field: 'ctype', title: '城市类型',templet: '#titleTpl'}
             ,{field: 'introduction', title: '目的地描述'}
             ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
          ]]
@@ -166,7 +148,7 @@
     	       reload: function(){
     	         var demoReload = $('#demoReload');
     	         var citytype = $('#citytype');
-    	         var status = $('#status');
+    	        
     	         //执行重载
     	         table.reload('testReload', {
     	           page: {
@@ -174,8 +156,8 @@
     	           }
     	           ,where: {
     	             key: demoReload.val(),
-    	             citytype: citytype.val(),
-    	             status: status.val(),
+    	             ctype: citytype.val(),
+    	            
     	           }
     	         });
     	       }
@@ -212,17 +194,7 @@
     	        ,moveType: 1 //拖拽模式，0或者1
     	        ,content: $("#box"),
     	         success:function(layero, index){
-    	        	   layui.use('layedit', function(){
-    	                 var layedit = layui.layedit;
-    	                 layedit.set({
-    	                	  uploadImage: {
-    	                	    url: '<%=basePath%>/upload' 
-    	                	    ,type: '' //默认post
-    	                	    
-    	                	  }
-    	                	});
-    	                 layedit.build('edit'); //建立编辑器
-    	               });
+    	        	  
     	        	   //图片上传
     	             layui.use('upload',function(){
     	                 let upload = layui.upload;
@@ -252,7 +224,7 @@
                 	  rowData&&(data.field.id=rowData.id)
                 	  delete data.field.file
                 	  $.ajax({
-                          url:"<%=basePath%>strategy/addOrUpdate",
+                          url:"<%=basePath%>city/addOrUpdate",
                           type:'post',//method请求方式，get或者post
                           dataType:'json',//预期服务器返回的数据类型
                           data:JSON.stringify(data.field),

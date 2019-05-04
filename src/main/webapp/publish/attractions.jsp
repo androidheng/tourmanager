@@ -27,6 +27,12 @@
                  <input type="text" name="attrname" id="attrname" required  lay-verify="required" placeholder="请输入景点名称" autocomplete="off" class="layui-input">
                </div>
            </div>
+            <div class="layui-form-item">
+               <label class="layui-form-label">景点门票价格</label>
+               <div class="layui-input-block">
+                 <input type="number" name="price" id="price" required  lay-verify="required"  autocomplete="off" class="layui-input">
+               </div>
+           </div>
          
              <div class="layui-form-item">
                 <div class="layui-upload">
@@ -107,10 +113,26 @@
     </script>
     
     <script type="text/html" id="barDemo">
-      <a class="layui-btn layui-btn-success layui-btn-xs" lay-event="edit">编辑</a>
-      <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+      {{#  if(d.status != 1){ }}
+          <a class="layui-btn layui-btn-success layui-btn-xs" lay-event="edit">编辑</a>
+          <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+      {{#  } }}
+      {{#  if(d.status == 2){ }}
+ 	   
+        <a class="layui-btn layui-btn-info layui-btn-xs" lay-event="publish">发布</a>
+      {{#  } }}
+     
     </script>
-   
+ <script type="text/html" id="titleTpl">
+ 
+ {{#  if(d.status == 0){ }}
+     未审核
+  {{#  } else if(d.status == 1){ }}
+     审核通过
+  {{#  } else { }}
+    审核不通过
+  {{#  } }}
+</script>
     <script>
     let logo = ''
     layui.use('table', function(){
@@ -125,6 +147,7 @@
              {field: 'attrname', title: '景点名称', }
             ,{field: 'price', title: '票价'}
             ,{field: 'cname', title: '所在城市'}
+            ,{field: 'status', title: '状态',templet: '#titleTpl'}
             ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
          ]]
         ,id:'testReload'
@@ -170,15 +193,15 @@
      //获取下拉列表数据
        function getCity(){
           $.ajax({
-              url:"<%=basePath%>strategy/findAll",
+              url:"<%=basePath%>city/findAll",
               type:'post',//method请求方式，get或者post
               dataType:'json',//预期服务器返回的数据类型
               contentType: "application/json; charset=utf-8",
               data:JSON.stringify({"status":"1"}),
               success:function(res){//res为相应体,function为回调函数
              	  let options = "<option value=''></option>"
-                  res.forEach(item=>{
-                 	 options+="<option value='" + item.id + "'>" + item.city + "</option>";
+                  res.data.forEach(item=>{
+                 	 options+="<option value='" + item.id + "'>" + item.cname + "</option>";
                   })
                  
                   $("#cityid").append(options)
@@ -281,8 +304,29 @@
                  });
            
            });
-         }else{
+         }else if(obj.event === 'edit'){
         	 add(data)
+         }else{
+        	 console.log(data)
+        	 let parames = {
+        			 id:data.id,
+        			 status:0
+        	 }
+        	 $.ajax({
+                 url:"<%=basePath%>attractions/addOrUpdate",
+                 type:'post',//method请求方式，get或者post
+                 dataType:'json',//预期服务器返回的数据类型
+                 data:JSON.stringify(parames),
+                 contentType: "application/json; charset=utf-8",
+                 success:function(res){//res为相应体,function为回调函数
+              	     
+                     $(".layui-laypage-btn")[0].click();
+                  
+                 },
+                 error:function(){
+                     layer.alert('操作失败！！！',{icon:5});
+                 }
+               }); 
          }
        });
      

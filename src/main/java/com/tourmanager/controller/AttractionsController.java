@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tourmanager.pojo.TbAttractions;
+import com.tourmanager.pojo.TbCity;
 import com.tourmanager.pojo.TbStrategy;
 import com.tourmanager.service.AttractionsService;
+import com.tourmanager.service.CityService;
 import com.tourmanager.service.StrategyService;
 
 import entity.PageResult;
@@ -28,6 +30,8 @@ public class AttractionsController {
 	private AttractionsService attractionsService;
 	@Autowired
 	private StrategyService strategyService;
+	@Autowired
+	private CityService cityService;
 	
 	/**
 	 * 返回全部列表
@@ -65,8 +69,9 @@ public class AttractionsController {
 	public Result add(@RequestBody TbAttractions attractions){
 		if(StringUtils.isEmpty(attractions.getId())) {
 			try {
-				TbStrategy tbStrategy = strategyService.findOne(attractions.getCityid());
-				attractions.setCname(tbStrategy.getCity());
+				TbCity city = cityService.findOne(attractions.getCityid());
+				attractions.setCname(city.getCname());
+				attractions.setStatus("0");
 				attractionsService.add(attractions);
 				return new Result(true, "增加成功");
 			} catch (Exception e) {
@@ -91,9 +96,10 @@ public class AttractionsController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping("/update")
+	@RequestMapping("/publish")
 	public Result update(@RequestBody TbAttractions attractions){
 		try {
+			attractions.setStatus("0");
 			attractionsService.update(attractions);
 			return new Result(true, "修改成功");
 		} catch (Exception e) {

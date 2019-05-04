@@ -115,10 +115,13 @@ public class CityController {
 	 */
 	 @ResponseBody
 	@RequestMapping(value="/search",produces = "application/json;charset=UTF-8")
-	public PageResult search(String key, int page, int limit  ){
+	public PageResult search(String key,String ctype, int page, int limit  ){
 		TbCity city=new TbCity();
 		if(!StringUtils.isEmpty(key)) {
-			
+			city.setCname(key);
+		}
+		if(!StringUtils.isEmpty(ctype)) {
+			city.setCtype(ctype);
 		}
 		return cityService.findPage(city, page, limit);		
 	}

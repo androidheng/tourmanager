@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tourmanager.pojo.TbAdmin;
+import com.tourmanager.pojo.TbCity;
 import com.tourmanager.pojo.TbStrategy;
 import com.tourmanager.pojo.TbUser;
+import com.tourmanager.service.CityService;
 import com.tourmanager.service.StrategyService;
 
 import entity.PageResult;
@@ -28,6 +30,8 @@ public class StrategyController {
 
 	@Autowired
 	private StrategyService strategyService;
+	@Autowired
+	private CityService cityService;
 	/**
 	 * 首页轮播图(点击次数最多的三个)
 	 */
@@ -93,9 +97,11 @@ public class StrategyController {
 	@RequestMapping("/addOrUpdate")
 	public Result add(@RequestBody TbStrategy strategy,HttpSession session){
 		TbAdmin loginAdmin=(TbAdmin) session.getAttribute("login");
+		TbCity tbCity = cityService.findOne(strategy.getCid());
 		if(loginAdmin!=null) {
 			if(StringUtils.isEmpty(strategy.getId())) {
 				try {
+					strategy.setCity(tbCity.getCname());
 					strategy.setStatus("1");
 					strategy.setClicks(0);
 					strategyService.add(strategy);
@@ -106,6 +112,7 @@ public class StrategyController {
 				}
 			}else {
 				try {
+					strategy.setCity(tbCity.getCname());
 					strategyService.update(strategy);
 					return new Result(true, "修改成功");
 				} catch (Exception e) {

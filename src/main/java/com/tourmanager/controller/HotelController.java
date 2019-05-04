@@ -6,8 +6,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.tourmanager.pojo.TbCity;
 import com.tourmanager.pojo.TbHotel;
 import com.tourmanager.pojo.TbStrategy;
+import com.tourmanager.service.CityService;
 import com.tourmanager.service.HotelService;
 import com.tourmanager.service.StrategyService;
 
@@ -26,6 +28,8 @@ public class HotelController {
 	private HotelService hotelService;
 	@Autowired
 	private StrategyService strategyService;
+	@Autowired
+	private CityService cityService;
 	
 	/**
 	 * 返回全部列表
@@ -53,10 +57,11 @@ public class HotelController {
 	 * @param hotel
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/addOrUpdate")
 	public Result addOrUpdate(@RequestBody TbHotel hotel){
-		TbStrategy tbStrategy = strategyService.findOne(hotel.getCid());
-		hotel.setCname(tbStrategy.getCity());
+		TbCity city = cityService.findOne(hotel.getCid());
+		hotel.setCname(city.getCname());
 		if(StringUtils.isEmpty(hotel.getId())) {
 			try {
 				hotelService.add(hotel);

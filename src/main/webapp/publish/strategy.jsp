@@ -14,17 +14,17 @@
 </head>
 <body class="layui-view-body">
      <div class="layui-content" id="box" style="display:none">
-         <form class="layui-form" action="" lay-filter="example">
+        <form class="layui-form"  lay-filter="example">
            <div class="layui-form-item">
-              <label class="layui-form-label">城市</label>
-                <div class="layui-input-block">
-                   <select id="cityid" name="cityid" lay-verify="required"></select>
+               <label class="layui-form-label">城市</label>
+               <div class="layui-input-block">
+                  <select id="cname" name="cid" lay-verify="required"></select>
                </div>
            </div>
            <div class="layui-form-item">
-               <label class="layui-form-label">景点名称</label>
+               <label class="layui-form-label">标题</label>
                <div class="layui-input-block">
-                 <input type="text" name="attrname" id="attrname" required  lay-verify="required" placeholder="请输入景点名称" autocomplete="off" class="layui-input">
+                  <input id="title" name="title" type="text" lay-verify="required" placeholder="请输入 标题" class="layui-input"></input>
                </div>
            </div>
          
@@ -40,29 +40,27 @@
                 </div>
              </div>
            
-           
-           <!--  <div class="layui-form-item">
+          
+            <div class="layui-form-item">
              <label class="layui-form-label">年龄范围</label>
                  <div class="layui-input-block">
                    <input type="number" style="display:inline-block;width:45%" name="startage" id="startage" required lay-verify="required" placeholder="请输最小年龄" autocomplete="off" class="layui-input">
                    <input type="number" style="display:inline-block;width:45%" name="endage" id="endage" required lay-verify="required" placeholder="请输最大年龄" autocomplete="off" class="layui-input">
                  </div>
-           </div>-->
-            <div class="layui-form-item">
-             <label class="layui-form-label">经纬度</label>
-                 <div class="layui-input-block">
-                   <input type="text" style="display:inline-block;width:45%" name="lat" id="lat" required lay-verify="required" placeholder="请输经度" autocomplete="off" class="layui-input">
-                   <input type="text" style="display:inline-block;width:45%" name="lon" id="lon" required lay-verify="required" placeholder="请输纬度" autocomplete="off" class="layui-input">
-                 </div>
            </div>
            
            <div class="layui-form-item layui-form-text">
-                <label class="layui-form-label">景点介绍</label>
+                <label class="layui-form-label">城市简介</label>
                 <div class="layui-input-block">
-                   <textarea name="describe" id="describe" placeholder="请输入景点介绍" class="layui-textarea"></textarea>
+                   <textarea name="introduction" id="introduction" placeholder="请输入城市简介" class="layui-textarea"></textarea>
                 </div>
            </div>
-          
+           <div class="layui-form-item">
+             <label class="layui-form-label">攻略</label>
+                 <div class="layui-input-block">
+                   <textarea id="edit" name="content" style="display: none;" placeholder="请输入攻略"></textarea>
+                 </div>
+           </div>
            <div class="layui-form-item">
                <div class="layui-input-block">
                  <button class="layui-btn layui-btn-blue" lay-submit lay-filter="formDemo">立即提交</button>
@@ -71,14 +69,13 @@
              </div>
            
         </form>
-     
      </div>
     <div class="layui-content">
         <div class="layui-page-header">
             <div class="pagewrap">
                 <span class="layui-breadcrumb">
                   <a>首页</a>
-                  <a>攻略信息</a>
+                  <a>目的地信息</a>
                 </span>
                 
             </div>
@@ -86,11 +83,13 @@
         <div class="layui-row">
             <div class="layui-card">
                 <div class="layui-card-body">
+                  
                      <div class="demoTable">
-                                                                      景点名称：
-                        <div class="layui-inline">
-                          <input type="text" id="demoReload"  lay-verify="required" autocomplete="off" placeholder="请输入 景点名称" class="layui-input">  
-                         </div>
+                                                                       城市名称：
+                       <div class="layui-inline">
+                         <input type="text" id="demoReload"  lay-verify="required" autocomplete="off" placeholder="请输入城市名称" class="layui-input">  
+                       </div>
+                      
                       <button class="layui-btn" data-type="reload">查询</button>
                     </div>
                     <table id="demo" lay-filter="demo" ></table>
@@ -99,11 +98,13 @@
         </div>
     </div>
    </div>
-   	<script src="<%=basePath%>assets/layui.all.js"></script>
+     <%--<script src="https://heerey525.github.io/layui-v2.4.3/layui-v2.4.5/layui.js"></script>--%>
+   
+     <script src="<%=basePath%>assets/layui.all.js"></script>  
     <script type="text/html" id="toolbarDemo">
-      <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="add">添加景点</button>
-      </div>
+     <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="add">添加攻略</button>
+     </div>
     </script>
     
     <script type="text/html" id="barDemo">
@@ -119,12 +120,13 @@
         table.render({
            elem: '#demo'
           ,toolbar: '#toolbarDemo'
-
-          ,url:'<%=basePath%>attractions/search'
+          ,url:'<%=basePath%>strategy/search'
           ,cols: [[ //标题栏
-             {field: 'attrname', title: '景点名称', }
-            ,{field: 'price', title: '票价'}
-            ,{field: 'cname', title: '所在城市'}
+             {field: 'title', title: '标题', }
+             ,{field: 'city', title: '城市'}
+            ,{field: 'startage', title: '最小年龄'}
+            ,{field: 'endage', title: '最大年龄'}
+            ,{field: 'introduction', title: '目的地描述'}
             ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
          ]]
         ,id:'testReload'
@@ -138,6 +140,7 @@
     	       reload: function(){
     	         var demoReload = $('#demoReload');
     	        
+    	         var status = $('#status');
     	         //执行重载
     	         table.reload('testReload', {
     	           page: {
@@ -146,6 +149,7 @@
     	           ,where: {
     	             key: demoReload.val(),
     	           
+    	             status: status.val(),
     	           }
     	         });
     	       }
@@ -170,18 +174,18 @@
      //获取下拉列表数据
        function getCity(){
           $.ajax({
-              url:"<%=basePath%>strategy/findAll",
+              url:"<%=basePath%>city/findAll",
               type:'post',//method请求方式，get或者post
               dataType:'json',//预期服务器返回的数据类型
               contentType: "application/json; charset=utf-8",
               data:JSON.stringify({"status":"1"}),
               success:function(res){//res为相应体,function为回调函数
              	  let options = "<option value=''></option>"
-                  res.forEach(item=>{
-                 	 options+="<option value='" + item.id + "'>" + item.city + "</option>";
+                  res.data.forEach(item=>{
+                 	 options+="<option value='" + item.id + "'>" + item.cname + "</option>";
                   })
                  
-                  $("#cityid").append(options)
+                  $("#cname").html(options)
                
                   form.render();
               },
@@ -191,6 +195,8 @@
             });
        }
        function add(rowData){
+    	   //console.log(rowData)
+    	   rowData&&form.val('example', rowData)
     	   layer.open({
     	         type: 1
     	        ,title: false //不显示标题栏
@@ -203,8 +209,20 @@
     	        ,moveType: 1 //拖拽模式，0或者1
     	        ,content: $("#box"),
     	         success:function(layero, index){
-    	        	 getCity()
-    	        	 layui.use('upload',function(){
+    	        	   getCity()
+    	        	   layui.use('layedit', function(){
+    	                 var layedit = layui.layedit;
+    	                 layedit.set({
+    	                	  uploadImage: {
+    	                	    url: '<%=basePath%>/upload' 
+    	                	    ,type: '' //默认post
+    	                	    
+    	                	  }
+    	                	});
+    	                 layedit.build('edit'); //建立编辑器
+    	               });
+    	        	   //图片上传
+    	             layui.use('upload',function(){
     	                 let upload = layui.upload;
     	                 upload.render({
     	                    elem: '#logo'
@@ -220,51 +238,58 @@
     	                  }
     	                   ,done: function(res){
     	                	   logo = res.message
-    	                	   
+    	                	   console.log(res)
     	                  //上传完毕
     	                   }
     	                });
     	              })
-    	              //提交
-                      form.on('submit(formDemo)', function(data){
-                    	  data.field.logo = rowData?rowData.logo:logo;
-                    	  
-                    	  rowData&&(data.field.id=rowData.id)
-                    	  delete data.field.file
-                    	  $.ajax({
-                              url:"<%=basePath%>attractions/addOrUpdate",
-                              type:'post',//method请求方式，get或者post
-                              dataType:'json',//预期服务器返回的数据类型
-                              data:JSON.stringify(data.field),
-                              contentType: "application/json; charset=utf-8",
-                              success:function(res){//res为相应体,function为回调函数
-                           	      layer.close(index);
+
+                       //提交
+                  form.on('submit(formDemo)', function(data){
+                	  data.field.logo =rowData?rowData.logo:logo;
+                	  rowData&&(data.field.id=rowData.id)
+                	  delete data.field.file
+                	  $.ajax({
+                          url:"<%=basePath%>strategy/addOrUpdate",
+                          type:'post',//method请求方式，get或者post
+                          dataType:'json',//预期服务器返回的数据类型
+                          data:JSON.stringify(data.field),
+                          contentType: "application/json; charset=utf-8",
+                          success:function(res){//res为相应体,function为回调函数
+                        	  if(res.success){
+                        		  layer.alert('添加成功',{icon:1});
+                        		  layer.close(index);
                                   $(".layui-laypage-btn")[0].click();
-                               
-                              },
-                              error:function(){
-                                  layer.alert('操作失败！！！',{icon:5});
-                              }
-                            });
-                        layer.close(index)  //关闭弹窗
-                        return false;
-                      });
+                        	  }else{
+                        		  layer.alert(res.message,{icon:5});  
+                        	  }
+                       	     
+                           
+                          },
+                          error:function(){
+                              layer.alert('操作失败！！！',{icon:5});
+                          }
+                        });
+                    layer.close(index)  //关闭弹窗
+                    return false;
+                  });
+
     	        	
-  	    	  }
-      	    
-    	        
-    	       ,end:function(index){
-    	        	layer.close(index)
-    	        }
-    	      })
+    	        	
+  	    	}
+      	   ,end:function(index){
+    	        layer.close(index)
+    	      }
+    	   })
        }
        //监听行工具事件
        table.on('tool(demo)', function(obj){
          var data = obj.data;
+         //console.log(obj)
          if(obj.event === 'del'){
            layer.confirm('真的删除行么', function(index){
         	  $.ajax({
-                   url:"<%=basePath%>attractions/delete",
+                   url:"<%=basePath%>strategy/delete",
                    type:'post',//method请求方式，get或者post
                    dataType:'json',//预期服务器返回的数据类型
                    data:JSON.stringify({id:data.id}),

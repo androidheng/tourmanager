@@ -90,7 +90,16 @@
       <a class="layui-btn layui-btn-success layui-btn-xs" lay-event="edit">编辑</a>
       <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
     </script>
-   
+    <script type="text/html" id="titleTpl">
+ 
+ {{#  if(d.usertype == 1){ }}
+     用户管理者
+  {{#  } else if(d.usertype == 2){ }}
+   发布信息者
+  {{#  } else { }}
+   审核信息者
+  {{#  } }}
+</script>
     <script>
     layui.use('table', function(){
     	 var table = layui.table,form = layui.form,$=layui.$;
@@ -103,8 +112,7 @@
           ,cols: [[ //标题栏
              {field: 'username', title: '用户名' }
             ,{field: 'password', title: '密码'}
-            ,{field: 'showstatus', title: '角色类型'}
-            ,{field: 'usertype', title: '角色类型', hide: true}
+            ,{field: 'usertype', title: '角色类型',templet: '#titleTpl'}
             ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
          ]]
         ,id:'testReload'
